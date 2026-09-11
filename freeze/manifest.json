@@ -1,0 +1,20 @@
+{
+ "pool_seed": 20260730,
+ "pool_per_cell": 20000,
+ "pool_hash": "9b57f5e3d89cdaa0",
+ "tokenizer_hash": "a2f260e5d7115716",
+ "bench_hash_physics": "151af137e50a89e7",
+ "bench_seed_physics": 20260731,
+ "bench_hash_vm": "88a159d01786c8ed",
+ "bench_seed_vm": 20260801,
+ "probes_per_family": 8,
+ "probes_hash": "bbc1ffb9b5544fbe",
+ "probes_provenance": "frozen v2 instrument; disjointness re-verified against the rebuilt pool+benches",
+ "pool_s2_hash": "f099af78e665050f",
+ "pool_s2_seed": 20260810,
+ "pool_q4_hash": "e0278dec9b90e54d",
+ "bench_hash_scratchpad": "26d980e5f0193c4e",
+ "pool_q4_seed": 20260904,
+ "bench_q4_seed": 20260905,
+ "q4_max_out": 24
+}

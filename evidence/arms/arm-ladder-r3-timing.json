@@ -1,0 +1,96 @@
+{
+ "tokens_to_T": [
+  null
+ ],
+ "final": [
+  0.6166666666666667
+ ],
+ "basics": [
+  0.7666666666666667
+ ],
+ "final_items": {
+  "11": [
+   true,
+   true,
+   true,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   true,
+   false,
+   true,
+   false,
+   true,
+   true,
+   false,
+   false,
+   true,
+   true,
+   true,
+   true,
+   true,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   false,
+   false,
+   false,
+   false,
+   true,
+   false,
+   false,
+   false,
+   false,
+   false,
+   true,
+   false
+  ]
+ },
+ "curves": {
+  "11": [
+   [
+    44818432,
+    0.6166666666666667,
+    0.7666666666666667,
+    0.0
+   ]
+  ]
+ },
+ "heldrange": {
+  "11": 0.0
+ },
+ "hashes": {
+  "bench": "151af137e50a89e7",
+  "pool": "9b57f5e3d89cdaa0",
+  "tokenizer": "a2f260e5d7115716",
+  "substrate": "d7017ffc111242b4"
+ },
+ "device": "mps",
+ "host": "box-B"
+}

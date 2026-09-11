@@ -1,0 +1,48 @@
+{
+ "source": "v2 tier-1 direct50-physics same-seed A/A' arms, MLX substrate (Apple M4); exported at v3 port time, never retyped by hand",
+ "niche": "physics",
+ "seeds": [
+  11,
+  22,
+  33
+ ],
+ "substrate": {
+  "n_layers": 4,
+  "d_model": 256,
+  "n_heads": 8,
+  "ctx": 256,
+  "batch_size": 32,
+  "total_tokens": 30000000,
+  "eval_every_tokens": 1500000,
+  "lr": 0.0003,
+  "lr_warmup_steps": 100
+ },
+ "final_A": [
+  0.5833333333333334,
+  0.6,
+  0.5833333333333334
+ ],
+ "final_Aprime": [
+  0.5833333333333334,
+  0.6,
+  0.6166666666666667
+ ],
+ "basics_A": [
+  0.45,
+  0.4666666666666667,
+  0.6166666666666667
+ ],
+ "basics_Aprime": [
+  0.3333333333333333,
+  0.5833333333333334,
+  0.4666666666666667
+ ],
+ "mean_final_A": 0.5888888888888889,
+ "noise_final": 0.1,
+ "noise_basics": 0.45,
+ "hashes": {
+  "bench": "151af137e50a89e7",
+  "pool": "9b57f5e3d89cdaa0",
+  "tokenizer": "a2f260e5d7115716"
+ }
+}

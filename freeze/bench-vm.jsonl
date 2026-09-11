@@ -1,0 +1,180 @@
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 2;push 3;push 4;sub;mul;out", "gold": "-2"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,add", "difficulty": 3, "text_in": "push 5;push 4;push 3;sub;add;out", "gold": "6"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-add,add", "difficulty": 3, "text_in": "push 8;push 8;push 2;add;add;out", "gold": "18"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 17;push 3;swap;mul;out", "gold": "51"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 18;push 11;swap;mul;out", "gold": "198"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,add", "difficulty": 3, "text_in": "push 9;push 7;push 4;sub;add;out", "gold": "12"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 18;push 14;swap;mul;out", "gold": "252"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 8;push 3;push 3;sub;mul;out", "gold": "0"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-add,add", "difficulty": 3, "text_in": "push 5;push 5;push 3;add;add;out", "gold": "13"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 7;push 8;push 9;sub;mul;out", "gold": "-7"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 9;push 8;push 5;sub;mul;out", "gold": "27"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 4;push 9;push 3;sub;mul;out", "gold": "24"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,add", "difficulty": 3, "text_in": "push 9;push 2;push 7;sub;add;out", "gold": "4"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,add", "difficulty": 3, "text_in": "push 3;push 7;push 9;sub;add;out", "gold": "1"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 8;push 18;swap;mul;out", "gold": "144"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-add,add", "difficulty": 3, "text_in": "push 3;push 2;push 7;add;add;out", "gold": "12"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 2;push 5;push 9;sub;mul;out", "gold": "-8"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,add", "difficulty": 3, "text_in": "push 3;push 6;push 9;sub;add;out", "gold": "0"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 9;push 5;push 7;sub;mul;out", "gold": "-18"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 20;push 5;swap;mul;out", "gold": "100"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 6;push 8;push 4;sub;mul;out", "gold": "24"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 2;push 19;swap;mul;out", "gold": "38"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-add,add", "difficulty": 3, "text_in": "push 2;push 2;push 8;add;add;out", "gold": "12"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 5;push 13;swap;mul;out", "gold": "65"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 6;push 7;push 8;sub;mul;out", "gold": "-6"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 19;push 17;swap;mul;out", "gold": "323"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 8;push 2;swap;mul;out", "gold": "16"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-add,add", "difficulty": 3, "text_in": "push 8;push 5;push 4;add;add;out", "gold": "17"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 6;push 5;swap;mul;out", "gold": "30"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 8;push 4;push 8;sub;mul;out", "gold": "-32"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-add,add", "difficulty": 3, "text_in": "push 2;push 8;push 5;add;add;out", "gold": "15"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 2;push 9;push 7;sub;mul;out", "gold": "4"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 16;push 12;swap;mul;out", "gold": "192"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 6;push 8;push 7;sub;mul;out", "gold": "6"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 9;push 5;push 4;sub;mul;out", "gold": "9"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,add", "difficulty": 3, "text_in": "push 5;push 8;push 6;sub;add;out", "gold": "7"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 11;push 12;swap;mul;out", "gold": "132"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,add", "difficulty": 3, "text_in": "push 7;push 6;push 2;sub;add;out", "gold": "11"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 18;push 3;swap;mul;out", "gold": "54"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 4;push 4;swap;mul;out", "gold": "16"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,add", "difficulty": 3, "text_in": "push 7;push 5;push 2;sub;add;out", "gold": "10"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 9;push 4;swap;mul;out", "gold": "36"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 10;push 14;swap;mul;out", "gold": "140"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 17;push 7;swap;mul;out", "gold": "119"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 8;push 9;swap;mul;out", "gold": "72"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 4;push 18;swap;mul;out", "gold": "72"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 9;push 9;swap;mul;out", "gold": "81"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 6;push 11;swap;mul;out", "gold": "66"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 7;push 3;push 7;sub;mul;out", "gold": "-28"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 6;push 2;swap;mul;out", "gold": "12"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-add,add", "difficulty": 3, "text_in": "push 6;push 4;push 5;add;add;out", "gold": "15"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 9;push 10;swap;mul;out", "gold": "90"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,mul", "difficulty": 3, "text_in": "push 9;push 4;push 5;sub;mul;out", "gold": "-9"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-add,add", "difficulty": 3, "text_in": "push 2;push 8;push 4;add;add;out", "gold": "14"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-add,add", "difficulty": 3, "text_in": "push 9;push 3;push 8;add;add;out", "gold": "20"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-add,add", "difficulty": 3, "text_in": "push 2;push 6;push 6;add;add;out", "gold": "14"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-sub,add", "difficulty": 3, "text_in": "push 5;push 9;push 9;sub;add;out", "gold": "5"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 14;push 12;swap;mul;out", "gold": "168"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 7;push 19;swap;mul;out", "gold": "133"}
+{"section": "niche_unseen", "family": "vm", "template_id": "vm-swap,mul", "difficulty": 2, "text_in": "push 17;push 6;swap;mul;out", "gold": "102"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub", "difficulty": 1, "text_in": "push 32;push 29;sub;out", "gold": "3"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul,sub", "difficulty": 3, "text_in": "push 33;push 40;push 28;mul;sub;out", "gold": "-1087"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul,add", "difficulty": 3, "text_in": "push 40;push 30;push 21;mul;add;out", "gold": "670"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 25;push 30;add;out", "gold": "55"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add,sub", "difficulty": 3, "text_in": "push 33;push 35;push 27;add;sub;out", "gold": "-29"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul", "difficulty": 2, "text_in": "push 33;push 38;mul;out", "gold": "1254"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-swap,add", "difficulty": 2, "text_in": "push 32;push 25;swap;add;out", "gold": "57"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul", "difficulty": 2, "text_in": "push 32;push 28;mul;out", "gold": "896"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub", "difficulty": 1, "text_in": "push 30;push 35;sub;out", "gold": "-5"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul", "difficulty": 1, "text_in": "push 36;push 25;mul;out", "gold": "900"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub,sub", "difficulty": 3, "text_in": "push 21;push 39;push 32;sub;sub;out", "gold": "14"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul", "difficulty": 2, "text_in": "push 29;push 29;mul;out", "gold": "841"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 36;push 30;add;out", "gold": "66"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub", "difficulty": 2, "text_in": "push 23;push 33;sub;out", "gold": "-10"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add,mul", "difficulty": 3, "text_in": "push 37;push 31;push 29;add;mul;out", "gold": "2220"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-swap,sub", "difficulty": 2, "text_in": "push 23;push 34;swap;sub;out", "gold": "11"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub", "difficulty": 1, "text_in": "push 34;push 31;sub;out", "gold": "3"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul,sub", "difficulty": 3, "text_in": "push 38;push 33;push 21;mul;sub;out", "gold": "-655"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 30;push 38;add;out", "gold": "68"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-swap,add", "difficulty": 2, "text_in": "push 33;push 40;swap;add;out", "gold": "73"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 26;push 23;add;out", "gold": "49"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-swap,sub", "difficulty": 2, "text_in": "push 34;push 25;swap;sub;out", "gold": "-9"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add,mul", "difficulty": 3, "text_in": "push 25;push 32;push 30;add;mul;out", "gold": "1550"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul", "difficulty": 1, "text_in": "push 34;push 40;mul;out", "gold": "1360"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul,add", "difficulty": 3, "text_in": "push 23;push 30;push 36;mul;add;out", "gold": "1103"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub", "difficulty": 1, "text_in": "push 33;push 31;sub;out", "gold": "2"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 25;push 31;add;out", "gold": "56"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul", "difficulty": 2, "text_in": "push 33;push 25;mul;out", "gold": "825"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 2, "text_in": "push 21;push 37;add;out", "gold": "58"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add,sub", "difficulty": 3, "text_in": "push 36;push 33;push 30;add;sub;out", "gold": "-27"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 2, "text_in": "push 26;push 34;add;out", "gold": "60"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 27;push 38;add;out", "gold": "65"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 39;push 29;add;out", "gold": "68"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 28;push 36;add;out", "gold": "64"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub,sub", "difficulty": 3, "text_in": "push 39;push 33;push 40;sub;sub;out", "gold": "46"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub", "difficulty": 1, "text_in": "push 26;push 30;sub;out", "gold": "-4"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub", "difficulty": 1, "text_in": "push 28;push 35;sub;out", "gold": "-7"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub", "difficulty": 1, "text_in": "push 24;push 29;sub;out", "gold": "-5"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul", "difficulty": 2, "text_in": "push 34;push 37;mul;out", "gold": "1258"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul,mul", "difficulty": 3, "text_in": "push 21;push 35;push 27;mul;mul;out", "gold": "19845"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub", "difficulty": 1, "text_in": "push 39;push 39;sub;out", "gold": "0"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-swap,add", "difficulty": 2, "text_in": "push 24;push 35;swap;add;out", "gold": "59"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-swap,sub", "difficulty": 2, "text_in": "push 38;push 35;swap;sub;out", "gold": "-3"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul", "difficulty": 2, "text_in": "push 27;push 28;mul;out", "gold": "756"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 24;push 36;add;out", "gold": "60"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 30;push 36;add;out", "gold": "66"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 36;push 33;add;out", "gold": "69"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub,sub", "difficulty": 3, "text_in": "push 36;push 23;push 28;sub;sub;out", "gold": "41"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 1, "text_in": "push 29;push 36;add;out", "gold": "65"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul", "difficulty": 1, "text_in": "push 21;push 24;mul;out", "gold": "504"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul", "difficulty": 1, "text_in": "push 31;push 31;mul;out", "gold": "961"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub", "difficulty": 1, "text_in": "push 39;push 25;sub;out", "gold": "14"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-swap,sub", "difficulty": 2, "text_in": "push 22;push 28;swap;sub;out", "gold": "6"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add,mul", "difficulty": 3, "text_in": "push 38;push 39;push 34;add;mul;out", "gold": "2774"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-sub,sub", "difficulty": 3, "text_in": "push 23;push 28;push 28;sub;sub;out", "gold": "23"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul", "difficulty": 1, "text_in": "push 38;push 31;mul;out", "gold": "1178"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add,mul", "difficulty": 3, "text_in": "push 32;push 29;push 30;add;mul;out", "gold": "1888"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul,sub", "difficulty": 3, "text_in": "push 35;push 24;push 39;mul;sub;out", "gold": "-901"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-mul,sub", "difficulty": 3, "text_in": "push 32;push 40;push 36;mul;sub;out", "gold": "-1408"}
+{"section": "niche_heldrange", "family": "vm", "template_id": "vm-add", "difficulty": 2, "text_in": "push 23;push 33;add;out", "gold": "56"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 3, "text_in": "444+479+236-435-119", "gold": "605"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy buwyiqfgwwl", "gold": "buwyiqfgwwl"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev bghwtq", "gold": "qtwhgb"}
+{"section": "basics", "family": "modarith", "template_id": "modarith-t0", "difficulty": 3, "text_in": "639 mod 10", "gold": "9"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 3, "text_in": "swap q>u in ujdnufqbjoojd", "gold": "ujdnufubjoojd"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 2, "text_in": "swap n>c in nsmzzv", "gold": "csmzzv"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 3, "text_in": "100-220+520+624-952", "gold": "72"}
+{"section": "basics", "family": "countchar", "template_id": "countchar-t0", "difficulty": 3, "text_in": "count x in kotuxpjxxubgxg", "gold": "4"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev qumtulue", "gold": "eulutmuq"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 2, "text_in": "19+20+20-16", "gold": "43"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 3, "text_in": "rev nygtlwwgplosi", "gold": "isolpgwwltgyn"}
+{"section": "basics", "family": "compare", "template_id": "compare-t0", "difficulty": 3, "text_in": "max 617 568", "gold": "617"}
+{"section": "basics", "family": "compare", "template_id": "compare-t0", "difficulty": 3, "text_in": "max 412 606", "gold": "606"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy gqjxjxzvhzi", "gold": "gqjxjxzvhzi"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev grfcmji", "gold": "ijmcfrg"}
+{"section": "basics", "family": "countchar", "template_id": "countchar-t0", "difficulty": 2, "text_in": "count g in mgwrgaicru", "gold": "2"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 3, "text_in": "sort 4852592529165", "gold": "1222455556899"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev cqdhuxdvb", "gold": "bvdxuhdqc"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 2, "text_in": "copy enhzfizzzz", "gold": "enhzfizzzz"}
+{"section": "basics", "family": "countchar", "template_id": "countchar-t0", "difficulty": 3, "text_in": "count c in bgqjcujdagwcxc", "gold": "3"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 3, "text_in": "rev yddotbnyyzc", "gold": "czyynbtoddy"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 2, "text_in": "copy bowjfgp", "gold": "bowjfgp"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 3, "text_in": "swap b>s in wpofrldogxdgobhq", "gold": "wpofrldogxdgoshq"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 3, "text_in": "start 8 duuddddduudd", "gold": "4"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 3, "text_in": "start 2 ududdudduuuddud", "gold": "1"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 2, "text_in": "72+81+65-99", "gold": "119"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy noyabwoklxyzh", "gold": "noyabwoklxyzh"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 2, "text_in": "sort 476847", "gold": "446778"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 2, "text_in": "95-36+74-84", "gold": "49"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 2, "text_in": "sort 17706926", "gold": "01266779"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 3, "text_in": "swap w>j in nphjxhblpwzjdrj", "gold": "nphjxhblpjzjdrj"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy aqxfspdzyrf", "gold": "aqxfspdzyrf"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 2, "text_in": "copy ktmjbtm", "gold": "ktmjbtm"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 2, "text_in": "18+24-54+95", "gold": "83"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy bioxqtwcwof", "gold": "bioxqtwcwof"}
+{"section": "basics", "family": "compare", "template_id": "compare-t0", "difficulty": 3, "text_in": "max 170 533", "gold": "533"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev pmwpbcz", "gold": "zcbpwmp"}
+{"section": "basics", "family": "countchar", "template_id": "countchar-t0", "difficulty": 2, "text_in": "count z in wnndsazxfl", "gold": "1"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 3, "text_in": "sort 05432121230045", "gold": "00011222334455"}
+{"section": "basics", "family": "brackets", "template_id": "brackets-t0", "difficulty": 3, "text_in": "depth ()(((())))()(", "gold": "no"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 2, "text_in": "swap h>y in fesofxhvj", "gold": "fesofxyvj"}
+{"section": "basics", "family": "compare", "template_id": "compare-t0", "difficulty": 3, "text_in": "max 554 522", "gold": "554"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev jsoaxw", "gold": "wxaosj"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy ckmmlkiujoxh", "gold": "ckmmlkiujoxh"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev zjyhrsngy", "gold": "ygnsrhyjz"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 3, "text_in": "swap e>t in hnakeyvauhiilm", "gold": "hnaktyvauhiilm"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy hruymzhxnmb", "gold": "hruymzhxnmb"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 3, "text_in": "rev rkijcvtrporw", "gold": "wroprtvcjikr"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 3, "text_in": "sort 199629731978153", "gold": "111233567789999"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 3, "text_in": "rev xdplmlwhvrc", "gold": "crvhwlmlpdx"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 2, "text_in": "sort 15450285", "gold": "01245558"}
+{"section": "basics", "family": "compare", "template_id": "compare-t0", "difficulty": 3, "text_in": "max 273 293", "gold": "293"}
+{"section": "basics", "family": "modarith", "template_id": "modarith-t0", "difficulty": 3, "text_in": "327 mod 12", "gold": "3"}
+{"section": "basics", "family": "compare", "template_id": "compare-t0", "difficulty": 3, "text_in": "max 374 822", "gold": "822"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev lbmlacek", "gold": "kecalmbl"}
+{"section": "basics", "family": "countchar", "template_id": "countchar-t0", "difficulty": 3, "text_in": "count x in clywfaxxolztv", "gold": "2"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 2, "text_in": "swap z>a in lzuinsg", "gold": "lauinsg"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 3, "text_in": "sort 2389309049334067", "gold": "0002333344678999"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 2, "text_in": "copy naophzwij", "gold": "naophzwij"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 2, "text_in": "sort 770140", "gold": "001477"}

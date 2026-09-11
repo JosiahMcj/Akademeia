@@ -1,0 +1,5 @@
+{
+ "noise_final": 0.15,
+ "noise_basics": 0.25,
+ "min_discordant": 8
+}

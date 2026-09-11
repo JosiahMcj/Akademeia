@@ -1,0 +1,443 @@
+# Akademeia PROTOCOL (v3; pre-registered 2026-08-11, before any code)
+
+Successor to Paideia (v1) and Ephebeia (v2), both public. Inherits every law
+of both verbatim unless amended here: pre-registration before results,
+append-only dated amendments, A/A' stream-salt pairing, item-level sign tests
+with power floors, discrimination bands never lowered after data, full-budget
+pre-flights, constant-predictor and in-distribution diagnostics before any
+"difficulty wall" claim, leakage laws (full-item contact; held-out groups are
+novel COMBINATIONS of trainable primitives, never primitives), pinned bench
+hashes, pristine eval with weight-purity asserts, anchored gitignores with
+`git ls-files` verification, CI from a fresh clone, and the honesty rules
+R1-R3. Design spec: my private design notes (2026-08-11).
+
+## What v3 exists to answer (registered before any run)
+
+- **Q1 (flagship): does the curriculum ranking survive an order of
+  magnitude?** The v2 arms (direct50, adaptive2, branch) re-run at tier-3
+  (~35M params) and tier-4 (~120M), fresh A/A' calibration per rung,
+  Amendment-7(v2) rank arithmetic. Success and failure are both findings;
+  the rung where stability breaks -- if it breaks -- is the result.
+- **Q2: where does the chained-multiplication depth wall break?** The v2 S2
+  variety pool plus the D1 per-template diagnostic at every rung; deliverable
+  is a scaling curve for trained product-chain execution and unseen transfer.
+- **Q3: does the structural-generalization lottery narrow?** vm unseen at
+  n >= 6 same-seed A/A' pairs per rung; the registered question is the
+  VARIANCE (v2 measured means up, spread unchanged, underpowered at n=3 by
+  its own rule).
+- **Q4: what does a scratchpad buy?** A new niche format in which the model
+  emits intermediate results before the answer, same held-out laws. This
+  CHANGES the task and is registered as such: claims are about what
+  externalizing intermediates buys, never a disguised comparison against the
+  plain format.
+
+OUT of scope (v4 candidates, not creep): real-text corpora and niches -- the
+leakage laws have no real-text analogs yet.
+
+## The port gates (CUDA substrate; the real risk, registered)
+
+The substrate moves MLX -> PyTorch. The laws, gates, stats, journal, resume,
+and publish machinery are pure Python and carry unchanged. Gates:
+
+- **P0-determinism, per device:** seeded end to end with deterministic
+  algorithms enabled; two same-seed runs must produce matching curves ON THE
+  DEVICE THAT WILL RUN EXPERIMENTS (CPU for development, an accelerator for
+  campaigns). If a device cannot deliver clean determinism, the fallback is
+  the measured-realization-noise + paired-design methodology, stated in an
+  amendment before any experiment on that device.
+- **Golden parity before any cross-version claim:** one tier-1 direct50 arm
+  re-run on the torch substrate must land within v2's measured A/A' band of
+  the MLX result. Pass -> cross-version comparisons are legal with the band
+  as the caveat; fail -> v3 is its own baseline era and never compares
+  backward. Either outcome is recorded.
+- **Device is journaled per run and excluded from the substrate hash;**
+  comparisons across devices are VOID unless the parity gate covered that
+  device pair.
+- **Timing probes before every rung commitment** (the v2 pre-flight rule);
+  budgets Chinchilla-ish (~4x tokens per rung) and frozen by amendment after
+  the probe.
+
+## Tiers (targets; frozen only after timing probes)
+
+- tier-1: 4L/256d, 30M tokens (the v2 substrate, for parity)
+- tier-2: 6L/384d, 45M (the v2 rung, for continuity)
+- tier-3 target: ~8L/640d (~35M params), ~135M tokens
+- tier-4 target: ~12L/1024d (~120M params), ~450M tokens
+
+## Ops (remote single-tenant box)
+
+Detached tmux chains with PID-file liveness (never process-name matching),
+journaled hash-verified resume, nvidia-smi-based memory/utilization guards
+that DELAY rather than exit, timing probes, CI on GitHub runners for the
+pure-Python laws plus a nightly substrate self-test on the box itself.
+
+## Null hypotheses, stated up front
+
+Q1: rankings scramble beyond tier-2 (cheap probes stop being trustworthy).
+Q2: the wall persists to tier-4 (depth limits don't melt at these sizes).
+Q3: the lottery's variance is scale-invariant.
+Q4: scratchpads buy nothing a bigger model doesn't already have.
+Any of these held with power is publishable.
+
+## Amendments of 2026-08-11 (port build; all registered before any measured run)
+
+**A1 -- probe provenance.** The dev-probe set is carried from v2 as a frozen
+instrument (hash bbc1ffb9b5544fbe). Its generative seed predates later
+family-set changes, so regeneration does not reproduce it; the binding laws
+(count-exact, no bench-split templates, zero overlap with pool and benches)
+were instead RE-VERIFIED against the pool and benches rebuilt on this
+substrate (scripts/verify_probes.py). Pool, tokenizer, both benches, and the
+S2 pool regenerated byte-identical to v2's manifest hashes; all pins are
+CI-enforced (tests/test_freeze_pinned.py).
+
+**A2 -- Q3 registered rule.** n=6 same-seed A/A' pairs per rung, vm niche,
+direct50, seeds (11,22,33,44,55,66). A seed's outcome is the pair mean
+(A+A')/2; spread is the sample sd across seed outcomes; the realization band
+is journaled alongside. Adjacent measured rungs are compared by the EXACT
+Brown-Forsythe permutation test (all C(12,6)=924 relabelings, group medians
+recomputed per relabeling). p < 0.05 labels the step NARROWS or WIDENS by
+direction; anything else is FLAT. No gates, no promotion; descriptive.
+
+**A3 -- Q4 scratchpad DSL, registered design.** Format: input
+`E=a*b*c;a=3;b=5;c=2`, output `15;30$` (left-fold partial products,
+';'-separated, last partial = answer; zero new characters against the frozen
+tokenizer). Grading is FULL-TRACE exact match: a wrong intermediate with a
+lucky final answer is wrong. Held-out law: bench chains are novel
+COMBINATIONS of trained symbols at trained lengths; length-4 chains are an
+extrapolation diagnostic, reported and never gated. The module
+(akademeia/scratchpad.py) is standalone-additive and test-enforced as
+unimported; wiring it into pool/bench is a separate dated amendment gated on
+my own wave-1 decision AND a preflight inside the discrimination
+band. The Q4 claim is what externalizing intermediates buys on its own task;
+it is never a comparison against the plain format.
+
+**A4 -- parity reference.** v2's tier-1 direct50-physics A/A' arms are
+exported verbatim to reference/mlx_tier1.json (mean 0.5889, band 0.1 = the
+registered noise_final). CI re-derives the band from the stored finals and
+binds the reference to the frozen instrument hashes
+(tests/test_reference.py). scripts/parity_check.py executes the gate per
+device and journals PASS/FAIL with the registered consequence either way.
+
+## Port gates: outcomes (2026-08-12, box A accelerator, device=cuda)
+
+**P0 determinism: PASS.** Same-seed micro runs produce matching curves under
+torch.use_deterministic_algorithms(True) on the accelerator (and on CPU). Required
+making it enforceable: CUBLAS_WORKSPACE_CONFIG set before the first cuBLAS
+call; the LM loss in flattened (N, vocab) form because the (B, vocab, T)
+spatial variant routes to nll_loss2d, which has no deterministic CUDA
+kernel; explicit softmax attention (no fused-backend nondeterminism).
+
+**Golden parity: PASS on attempt 2 of a pre-declared maximum of 2.**
+- Attempt 1 (journaled 2026-08-11): FAIL, torch mean 0.4056 vs MLX 0.5889,
+  band 0.1; basics -0.34 alongside -- a global miss. Diagnosis by MEASURING
+  the MLX substrate, not by tuning: three port-spec mismatches -- embedding
+  init N(0,1) vs MLX's N(0, d^-0.5) (16x hotter); torch MultiheadAttention
+  (xavier-packed QKV with biases) vs MLX's four bias-free U(+-1/sqrt(d))
+  projections; torch AdamW's bias correction vs MLX's uncorrected rule with
+  pre-step decoupled decay. All three corrected to mirror the measured MLX
+  semantics (model.py, optim.py; distributions and update rule test-pinned).
+- Attempt 2 (journaled 2026-08-12T00:23): PASS, torch mean 0.5778 vs MLX
+  0.5889, diff -0.011 against band 0.1. Per-seed finals torch
+  [0.567, 0.600, 0.567] vs MLX [0.583, 0.600, 0.583].
+
+Consequence, as registered: cross-version comparisons are LEGAL with the
+band as the caveat. Cross-DEVICE comparisons remain void unless a parity
+pass covers that device pair. Tier-1 wall on that accelerator: ~700-800s/run
+including 20 checkpoint evals, coexisting with a resident 109GB model
+server (chains carry bounded transient-OOM retries; registered failures
+still abort immediately).
+
+## Amendment (2026-08-14): rung-1 probe limit for the CPU instrument
+
+The rung-1 full-run wall limit (3600s) was calibrated for the accelerator
+(~750s/run measured). The CPU lane -- a fully gated instrument (P0 PASS,
+parity-vs-MLX PASS 0.5833, cpu<->cuda pair PASS) -- measured a timing probe
+of 1693s at 1/3 budget, est 5079s full. The exit-8 abort fired as
+registered and the budget decision came back to me: proceeding under
+the standing keep-pushing directive, the limit rises to 6000s FOR RUNG 1
+(other rungs unchanged). This is a wall-clock budget, not a measurement
+gate; no measured quantity or threshold changes.
+
+## Amendment (2026-08-20): instrument change -- box A wiped, box B CPU joins
+
+Box A (its accelerator under cuda, its CPU under cpu) was factory reset on
+2026-08-14. Its full runs/ tree -- journal, arm files, per-seed curve
+caches, checkpoints -- is preserved as the instrument record at
+spark-rescue-2026-08-14/ and remains the evidence for every verdict
+journaled there. No number in it changes.
+
+The campaign resumes on box B (28 cores, 96GB), device string "cpu". Registered consequences:
+
+1. Box B's CPU is a NEW instrument. Before any campaign cell runs there
+   it must pass, in order: the frozen-artifact pins, P0 determinism (cpu),
+   and the golden parity gate against the v2 MLX reference band
+   (mean within noise_final=0.1 of 0.58889). A parity FAIL follows the
+   registered fix-by-measuring law; retry budget stays 2 attempts.
+2. Resume keys now include the HOST alongside hashes+device, for both arm
+   files and per-seed curve stamps (scripts/run_arm.py, test-enforced).
+   Two hosts share the device string "cpu" but are different instruments;
+   a runs/ tree copied across hosts must re-measure, never adopt. This is
+   a tightening only: nothing formerly rejected is now accepted.
+3. Box B starts with a FRESH runs/ tree. Box A's curve caches are not
+   restored onto it (they would re-measure anyway under rule 2).
+4. Comparisons: every arm-vs-baseline cell is single-instrument by
+   construction (one host, one device, same seeds). Cell verdicts from the
+   box A stand as box A verdicts. Cross-rung conclusions compare per-cell
+   verdicts, not raw scores across instruments; any rung whose cells split
+   across instruments is reported with that caveat, and no raw-score
+   cross-host comparison is made without a direct pair gate (impossible
+   with box A gone -- so none will be made).
+
+## Rung-1 discrimination gate fired on box B (2026-08-21) -- diagnostic pre-declared
+
+calibrate exited 7 as registered: A/A' pooled mixed items 5/60 (floor 6/60
+at rung 1), mean 0.5722 in band, structure 32 unanimous-solved /
+23 unanimous-failed / 5 mixed. Checked BEFORE any change: the stream salt
+is alive (A vs A' finals and items differ per seed; d_final max 0.033) and
+A's finals reproduce the parity arm's exactly, so per-seed determinism
+holds. Precedent: v2's tier-1 passed this floor at 7/60 (one item above);
+v2's tier-2 failed at exactly 5/60 and Amendment 10 diagnosed extreme
+same-arm reproducibility rather than incapacity -- citing the bench
+registering ~30 discordant items for a genuinely different arm (tier-1
+branch) -- and made the floor advisory above tier-1 while H1's >= 8
+discordant power floor remains the true safety net.
+
+That evidentiary step is missing for THIS instrument, so it runs first,
+declared before its result is known: one structurally different curriculum
+(basics_then_niche, cold, rung-1 substrate, same seeds, salt 0, adhoc tag,
+OMP=16 matching the gated config) vs baseline A, counting discordant items
+on the frozen physics bench.
+
+- If >= 8 items are discordant: the instrument registers differences, the
+  A/A' floor failure indicates reproducibility (the v2 tier-2 regime), and
+  a mirror of v2 Amendment 10 for rung 1 on this instrument goes to the
+  decision as a PROPOSAL with this record attached. The gate is not
+  touched without that approval.
+- If < 8: rung 1 on this instrument cannot discriminate; that is a
+  registered negative instrument finding, rung-1 campaign cells do not run
+  here, and the ladder proceeds from rung 2 (where the floor is advisory
+  by inherited v2 Amendment 10) with the caveat journaled.
+
+Diagnostic result (2026-08-21, same day, run as pre-declared): the
+basics_then_niche arm vs baseline A registered 12 pooled discordant items
+(per-seed 4/3/5; both directions: diag+5 / A+7), pooled A+diag mixed
+10/60. The >= 8 branch holds: the instrument registers differences, and
+the A/A' 5/60 indicates reproducibility, not incapacity. The Amendment-10
+mirror for rung 1 on this instrument stands as a proposal;
+the floor stays enforced until that word. For the record, the thresholds
+this A/A' pair would freeze are identical to v2 tier-1's: noise_final 0.1,
+noise_basics 0.45, min_discordant 8.
+
+## Amendment (2026-08-22): rung-1 mixed floor advisory on box B
+
+I accepted the proposal of 2026-08-21: for rung 1 on the box B
+instrument (box B, cpu), the A/A' mixed-items floor becomes
+ADVISORY, mirroring v2 Amendment 10 and resting on the same two supports,
+both now measured here: (1) the pre-declared diagnostic showed the bench
+registers 12 discordant items for a genuinely different arm on this
+instrument, so the floor miss reflects same-arm reproducibility; (2) H1's
+min_discordant >= 8 verdict-time power floor is untouched, so no
+comparison that truly lacks capacity can produce a verdict -- the bounded
+worst case remains an honestly-labeled UNDERPOWERED cell. Implementation
+is an explicit flag (calibrate --floor-advisory, threaded as
+AK_R1_FLOOR_ADVISORY=1 in the cpu lane, rung 1 only); every other
+invocation stays strict, and the advisory path prints and journals the
+full unanimity breakdown as the instrument's capacity statement. Gate
+behavior is test-pinned both ways (tests/test_calibrate_floor.py).
+
+## Registered rung-1 thresholds (2026-08-22, mechanical)
+
+Derived by scripts/calibrate.py from the same-seed A/A' pair:
+{
+ "thresholds": {
+  "noise_final": 0.1,
+  "noise_basics": 0.45,
+  "min_discordant": 8
+ },
+ "report": {
+  "mean_final": 0.5778,
+  "mixed_items": "5/60",
+  "unanimous_solved": 32,
+  "unanimous_failed": 23
+ }
+}
+
+## Registered rung-2 thresholds (2026-08-23, mechanical)
+
+Derived by scripts/calibrate.py from the same-seed A/A' pair:
+{
+ "thresholds": {
+  "noise_final": 0.25,
+  "noise_basics": 0.5,
+  "min_discordant": 8
+ },
+ "report": {
+  "mean_final": 0.6167,
+  "mixed_items": "6/60",
+  "unanimous_solved": 33,
+  "unanimous_failed": 21
+ }
+}
+
+## MPS instrument candidate (2026-08-26, registered before any run)
+
+Rung 3 on box B's CPU measured 16553s/run vs the 5400s registered
+limit; the exit-8 abort returned the budget decision to me. The choice:
+probe box B's GPU (torch device "mps") as a candidate instrument
+before any budget amendment. Gate order is the same law every instrument
+has passed, in order, nothing counts before all three are journaled:
+P0 determinism smoke on mps; golden parity vs the v2 MLX tier-1 reference
+(band 0.1); the cpu<->mps device-pair gate on this box. A failure at any
+gate ends the candidacy (registered exits 6/3), with no tuning toward the
+gate; parity keeps the standing 2-attempt budget, and any fix between
+attempts must come from measuring the substrate, not the gate. If gated
+in, rung-3 timing is re-probed on mps under the UNCHANGED 5400s limit;
+only if that still exceeds the limit does a wall-clock budget amendment
+come back to me. Known wrinkle registered up front: device_lock
+routes non-cuda devices to the cpu lock, so an mps chain serializes with
+cpu chains -- conservative, acceptable, and nothing else runs on the box.
+
+## Amendment (2026-08-26): rung-3 wall raised for the gated mps instrument
+
+The mps instrument passed the full gate ladder on box B: P0
+determinism (twice-trained allclose 1e-6), golden parity 0.5556 vs the
+MLX 0.5889 reference (band 0.1), and the cpu<->mps device-pair gate
+(0.5778 vs 0.5556, in band) -- five instruments have now hit the same
+tier-1 band across four substrates. The rung-3 timing probe on mps
+measured 8307s/run against the 5400s registered limit and aborted with
+exit 8 as registered; on cpu the same probe had measured 16553s/run.
+I took the FULL rung-3 program (ladder + S2 + S1) on mps. The
+rung-3 wall rises 5400s -> 9000s. This is a wall-clock budget, not a
+measurement gate; no measured quantity or threshold changes, and the cpu
+path remains over the limit. Instrument mixing across rungs (r1/r2 cells
+on cpu, r3 cells on mps) is covered by the 2026-08-20 amendment (per-cell
+single-instrument, verdict-level cross-rung comparison) plus the passed
+cpu<->mps pair gate for any banded direct comparison.
+
+## Registered rung-3 thresholds (2026-08-27, mechanical)
+
+Derived by scripts/calibrate.py from the same-seed A/A' pair:
+{
+ "thresholds": {
+  "noise_final": 0.15,
+  "noise_basics": 0.25,
+  "min_discordant": 8
+ },
+ "report": {
+  "mean_final": 0.5778,
+  "mixed_items": "14/60",
+  "unanimous_solved": 27,
+  "unanimous_failed": 19
+ }
+}
+
+## Rung-3 results (2026-08-28, full program on the gated mps instrument)
+
+Ladder + S2 + S1 completed 08-26 23:20 -> 08-28 18:08 box-clock. Thresholds
+r3 frozen mechanically: noise_final 0.15, noise_basics 0.25,
+min_discordant 8.
+
+**Q1 gate verdicts at rung 3 (unchanged from rungs 1 and 2):**
+- branch vs direct50: 4W/21L, 25 discordant, P(worse)=0.00046, mean paired
+  diff -0.094, retention -0.811. NOT promoted in either mode, third rung
+  running.
+- adaptive2 vs direct50: 9W/13L, 22 discordant, P(better)=0.857,
+  P(worse)=0.262, mean paired diff -0.022, retention -0.044. NONINFERIOR
+  promoted, not superior, third rung running.
+
+**Q1 ordinal measure: rank agreement r2->r3 = 0.667 (2 concordant, 1
+discordant), top-1 flips adaptive2 -> direct50.** By the registered rule
+this is the rung where stability breaks, and the pre-registered prediction
+("rankings scramble beyond tier-2") is nominally borne out. The measure's
+verdict stands as registered and is NOT reinterpreted after the fact.
+
+Recorded alongside it, because a reader needs both to judge the claim: the
+single discordant pair is (adaptive2, direct50), separated at rung 3 by
+0.022 -- against that rung's own noise_final of 0.15, against a sign test
+of P=0.26, and against the measured cpu<->mps instrument difference of
+0.022 from the pair gate. It is the one pair whose gates never separated
+it at ANY rung. The concordant pairs are both branch-vs-X, and branch sits
+last at all three rungs with power (25 discordant items, p=0.0005). So the
+ordinal measure broke on a pair that no statistical test has ever
+distinguished, while every gate-level verdict replicated. The honest
+statement of the Q1 result is that: the SEPARATED ranking survived an
+order of magnitude; the ordinal measure, which has no noise floor, flipped
+a statistically tied pair at rung 3.
+
+**Q2 at rung 3: still DEPTH-LIMITED, but the wall moved for the first
+time.** Unseen 3-var product transfer 0.048 (r1) -> 0.063 (r2) -> 0.270
+(r3), against a margin that rose 0.150 -> 0.429 -> 0.714 as in-distribution
+product execution improved. Transfer is now off the floor and still far
+under its margin. "The wall persists" (the registered prediction) holds by
+the verdict; "the wall is absolute" would be wrong.
+
+**Q3 at rung 3: FLAT, third consecutive rung.** r2->r3 spread 0.0636 ->
+0.0164, exact Brown-Forsythe p=0.390 (r1->r2 was p=0.712). The nominal
+narrowing at r3 is 4x and still does not clear the registered alpha at
+n=6; the registered scale-invariance prediction is not refuted, and the
+study remains underpowered against a narrowing of this size by its own
+rule.
+
+**Instrument note.** Rungs 1-2 ran on cpu, rung 3 on mps, both on
+box B; every CELL is single-instrument, and the cpu<->mps pair
+gate (diff 0.022, band 0.1) licenses banded cross-rung reading. Absolute
+scores fell slightly at rung 3 for all three arms while basics rose
+sharply (direct50 basics 0.622 -> 0.850); no claim is made about that
+drop's cause, since instrument change and scale change are confounded
+here and the campaign has no third measurement to separate them.
+Concurrently, another project measured heavy GPU contention on this box in
+a window overlapping this program; determinism is gated (P0 on mps) so
+contention affects wall-clock only, not these numbers.
+
+## Amendment (2026-09-04): Q4 scratchpad wiring, registered before any Q4 run
+
+A3 gated this wiring on two things: my own wave-1 call and a preflight
+inside the discrimination band. I take Q4 into wave 1 here: it is the only
+registered question with no data at all, and it runs on cpu cores rather
+than this box's contended GPU, so it costs nothing the other questions
+need. The preflight is implemented as a registered STAGE below, so the
+second condition is enforced by the runner rather than by intention.
+
+**Wiring, all additive; no frozen value changes and the defaults stay
+byte-identical (test-pinned).**
+- The scratchpad family is deliberately NOT added to the FAMILIES registry:
+  build_pool iterates that registry, so adding it would rewrite every
+  pinned pool hash. It rides instead as `extra_examples` on a VARIANT pool
+  (the Study S2 precedent), with its own keys: pool_q4_hash
+  e0278dec9b90e54d (seed 20260904), bench_hash_scratchpad 26d980e5f0193c4e
+  (seed 20260905).
+- `validate` gained `extra_families`, empty by default, so the registry
+  check is unchanged for every existing caller and a typo in the declared
+  family still raises (both directions test-pinned).
+- The length-4 chains ride the machinery's reported-never-gated diagnostic
+  slot (`niche_heldrange`), which is the precedent A3 names for them. They
+  are reported and never gated, at every rung.
+- Generation cap: the evaluator's default 24 characters, asserted at build
+  time against the longest legal gold trace (17). A cap under a legal trace
+  would silently turn a correct answer into a wrong grade, so the build
+  refuses rather than warns.
+
+**Laws verified at build time, the build refusing rather than warning:**
+zero new characters against the frozen tokenizer (pool AND bench);
+split_law_ok (bench = novel combinations of trained symbols at trained
+lengths, extrap the only new length, no new symbols); no bench item or
+bench prompt present in the pool, checked on the rendered strings in both
+directions; the independent grader accepts every gold trace AND rejects a
+perturbation of it (a grader that cannot fail is not a grader); the pool
+carries train-split templates only, by construction rather than filtering.
+
+**Design.** A 50/50 basics/scratchpad curriculum -- the same shape as the
+ladder's own direct50 baseline -- on the Q4 pool, three seeds, same-seed
+A/A' pair at salts 0 and 1, thresholds derived by the unchanged calibrate
+law. Gated metric: niche_unseen, FULL-TRACE exact match.
+
+**Preflight, registered as a gate with its exit.** One seed at the rung,
+scored before the study commits: the mean must land inside the [0.20, 0.85]
+discrimination band. Outside it the study exits 7 and does not run, and
+that is the recorded finding -- a task pinned at a floor or a ceiling
+cannot answer anything (the statistic-must-be-able-to-move law).
+
+**Claim scope, unchanged from A3.** Whatever this measures is a statement
+about the scratchpad format on its own task. No comparison against the
+plain format is drawn, here or later: the tasks differ, so a cross-format
+score difference would not mean what it appears to mean.

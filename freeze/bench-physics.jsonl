@@ -1,0 +1,180 @@
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 1, "text_in": "Q=a*v;a=5;v=5", "gold": "25"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-current", "difficulty": 1, "text_in": "i=q/t;q=8;t=2", "gold": "4"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-wavelen", "difficulty": 2, "text_in": "L=v/f;v=6;f=3", "gold": "2"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 2, "text_in": "Q=a*v;a=7;v=4", "gold": "28"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-gravity", "difficulty": 1, "text_in": "F=g*m*n/100;g=5;m=4;n=5", "gold": "1"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-impulse", "difficulty": 2, "text_in": "p=f*t;f=20;t=19", "gold": "380"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-pe", "difficulty": 1, "text_in": "E=m*g*h;m=2;g=5;h=2", "gold": "20"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 1, "text_in": "Q=a*v;a=6;v=9", "gold": "54"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-gravity", "difficulty": 2, "text_in": "F=g*m*n/100;g=5;m=8;n=10", "gold": "4"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-impulse", "difficulty": 3, "text_in": "p=f*t;f=33;t=35", "gold": "1155"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-gravity", "difficulty": 1, "text_in": "F=g*m*n/100;g=5;m=5;n=8", "gold": "2"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 3, "text_in": "Q=a*v;a=10;v=25", "gold": "250"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-pe", "difficulty": 3, "text_in": "E=m*g*h;m=11;g=8;h=25", "gold": "2200"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 2, "text_in": "Q=a*v;a=13;v=20", "gold": "260"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-pe", "difficulty": 3, "text_in": "E=m*g*h;m=9;g=6;h=4", "gold": "216"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-impulse", "difficulty": 1, "text_in": "p=f*t;f=8;t=3", "gold": "24"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-wavelen", "difficulty": 2, "text_in": "L=v/f;v=5;f=5", "gold": "1"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-pe", "difficulty": 1, "text_in": "E=m*g*h;m=5;g=3;h=6", "gold": "90"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-wavelen", "difficulty": 3, "text_in": "L=v/f;v=8;f=8", "gold": "1"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-pe", "difficulty": 3, "text_in": "E=m*g*h;m=34;g=28;h=11", "gold": "10472"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 3, "text_in": "Q=a*v;a=16;v=25", "gold": "400"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-wavelen", "difficulty": 2, "text_in": "L=v/f;v=16;f=2", "gold": "8"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-gravity", "difficulty": 1, "text_in": "F=g*m*n/100;g=5;m=5;n=4", "gold": "1"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-pe", "difficulty": 2, "text_in": "E=m*g*h;m=8;g=7;h=5", "gold": "280"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 1, "text_in": "Q=a*v;a=4;v=9", "gold": "36"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 1, "text_in": "Q=a*v;a=5;v=2", "gold": "10"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 2, "text_in": "Q=a*v;a=19;v=9", "gold": "171"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 1, "text_in": "Q=a*v;a=2;v=9", "gold": "18"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-current", "difficulty": 3, "text_in": "i=q/t;q=35;t=5", "gold": "7"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-current", "difficulty": 1, "text_in": "i=q/t;q=9;t=3", "gold": "3"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-gravity", "difficulty": 3, "text_in": "F=g*m*n/100;g=25;m=8;n=34", "gold": "68"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-pe", "difficulty": 1, "text_in": "E=m*g*h;m=4;g=6;h=8", "gold": "192"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-impulse", "difficulty": 1, "text_in": "p=f*t;f=8;t=8", "gold": "64"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-current", "difficulty": 1, "text_in": "i=q/t;q=4;t=4", "gold": "1"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-impulse", "difficulty": 1, "text_in": "p=f*t;f=2;t=2", "gold": "4"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-wavelen", "difficulty": 1, "text_in": "L=v/f;v=4;f=2", "gold": "2"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-impulse", "difficulty": 2, "text_in": "p=f*t;f=6;t=15", "gold": "90"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 3, "text_in": "Q=a*v;a=7;v=14", "gold": "98"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-impulse", "difficulty": 3, "text_in": "p=f*t;f=12;t=39", "gold": "468"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 3, "text_in": "Q=a*v;a=33;v=39", "gold": "1287"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-current", "difficulty": 3, "text_in": "i=q/t;q=32;t=16", "gold": "2"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 3, "text_in": "Q=a*v;a=36;v=24", "gold": "864"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-impulse", "difficulty": 3, "text_in": "p=f*t;f=11;t=7", "gold": "77"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 3, "text_in": "Q=a*v;a=21;v=3", "gold": "63"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-flow", "difficulty": 1, "text_in": "Q=a*v;a=4;v=2", "gold": "8"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-current", "difficulty": 1, "text_in": "i=q/t;q=5;t=5", "gold": "1"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-impulse", "difficulty": 1, "text_in": "p=f*t;f=6;t=2", "gold": "12"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-current", "difficulty": 2, "text_in": "i=q/t;q=9;t=9", "gold": "1"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-gravity", "difficulty": 1, "text_in": "F=g*m*n/100;g=8;m=5;n=5", "gold": "2"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-pe", "difficulty": 1, "text_in": "E=m*g*h;m=7;g=5;h=8", "gold": "280"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-gravity", "difficulty": 2, "text_in": "F=g*m*n/100;g=20;m=5;n=11", "gold": "11"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-gravity", "difficulty": 1, "text_in": "F=g*m*n/100;g=5;m=8;n=5", "gold": "2"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-wavelen", "difficulty": 1, "text_in": "L=v/f;v=9;f=3", "gold": "3"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-gravity", "difficulty": 2, "text_in": "F=g*m*n/100;g=19;m=10;n=10", "gold": "19"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-pe", "difficulty": 3, "text_in": "E=m*g*h;m=15;g=14;h=21", "gold": "4410"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-pe", "difficulty": 1, "text_in": "E=m*g*h;m=7;g=9;h=2", "gold": "126"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-gravity", "difficulty": 3, "text_in": "F=g*m*n/100;g=15;m=25;n=32", "gold": "120"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-current", "difficulty": 2, "text_in": "i=q/t;q=14;t=14", "gold": "1"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-impulse", "difficulty": 3, "text_in": "p=f*t;f=39;t=12", "gold": "468"}
+{"section": "niche_unseen", "family": "physics", "template_id": "ph-gravity", "difficulty": 3, "text_in": "F=g*m*n/100;g=26;m=10;n=20", "gold": "52"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-weight", "difficulty": 2, "text_in": "W=m*g;m=78;g=70", "gold": "5460"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-charge", "difficulty": 2, "text_in": "Q=i*t;i=51;t=67", "gold": "3417"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-charge", "difficulty": 2, "text_in": "Q=i*t;i=49;t=80", "gold": "3920"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-charge", "difficulty": 2, "text_in": "Q=i*t;i=47;t=72", "gold": "3384"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-charge", "difficulty": 2, "text_in": "Q=i*t;i=55;t=48", "gold": "2640"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-charge", "difficulty": 2, "text_in": "Q=i*t;i=63;t=76", "gold": "4788"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-spring", "difficulty": 2, "text_in": "F=k*x;k=45;x=59", "gold": "2655"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-work", "difficulty": 2, "text_in": "E=f*d;f=65;d=49", "gold": "3185"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-momentum", "difficulty": 2, "text_in": "p=m*v;m=48;v=47", "gold": "2256"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-wave", "difficulty": 2, "text_in": "v=f*L;f=74;L=42", "gold": "3108"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-work", "difficulty": 2, "text_in": "E=f*d;f=46;d=73", "gold": "3358"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-torque", "difficulty": 2, "text_in": "T=f*r;f=57;r=75", "gold": "4275"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-distance", "difficulty": 2, "text_in": "d=v*t;v=42;t=79", "gold": "3318"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-heat", "difficulty": 2, "text_in": "Q=m*c*dT;m=58;c=51;dT=62", "gold": "183396"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-weight", "difficulty": 2, "text_in": "W=m*g;m=58;g=47", "gold": "2726"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-weight", "difficulty": 2, "text_in": "W=m*g;m=77;g=65", "gold": "5005"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-distance", "difficulty": 2, "text_in": "d=v*t;v=64;t=46", "gold": "2944"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-wave", "difficulty": 2, "text_in": "v=f*L;f=47;L=61", "gold": "2867"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-distance", "difficulty": 2, "text_in": "d=v*t;v=76;t=70", "gold": "5320"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-heat", "difficulty": 2, "text_in": "Q=m*c*dT;m=49;c=52;dT=76", "gold": "193648"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-heat", "difficulty": 2, "text_in": "Q=m*c*dT;m=70;c=63;dT=49", "gold": "216090"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-distance", "difficulty": 2, "text_in": "d=v*t;v=67;t=73", "gold": "4891"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-spring", "difficulty": 2, "text_in": "F=k*x;k=67;x=75", "gold": "5025"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-weight", "difficulty": 2, "text_in": "W=m*g;m=46;g=49", "gold": "2254"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-torque", "difficulty": 2, "text_in": "T=f*r;f=66;r=61", "gold": "4026"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-ohm", "difficulty": 2, "text_in": "V=i*r;i=66;r=47", "gold": "3102"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-distance", "difficulty": 2, "text_in": "d=v*t;v=78;t=41", "gold": "3198"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-charge", "difficulty": 2, "text_in": "Q=i*t;i=75;t=78", "gold": "5850"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-wave", "difficulty": 2, "text_in": "v=f*L;f=55;L=48", "gold": "2640"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-momentum", "difficulty": 2, "text_in": "p=m*v;m=64;v=62", "gold": "3968"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-work", "difficulty": 2, "text_in": "E=f*d;f=53;d=57", "gold": "3021"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-charge", "difficulty": 2, "text_in": "Q=i*t;i=46;t=47", "gold": "2162"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-spring", "difficulty": 2, "text_in": "F=k*x;k=74;x=70", "gold": "5180"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-charge", "difficulty": 2, "text_in": "Q=i*t;i=60;t=74", "gold": "4440"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-heat", "difficulty": 2, "text_in": "Q=m*c*dT;m=67;c=44;dT=42", "gold": "123816"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-torque", "difficulty": 2, "text_in": "T=f*r;f=60;r=48", "gold": "2880"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-spring", "difficulty": 2, "text_in": "F=k*x;k=74;x=50", "gold": "3700"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-torque", "difficulty": 2, "text_in": "T=f*r;f=66;r=63", "gold": "4158"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-charge", "difficulty": 2, "text_in": "Q=i*t;i=78;t=48", "gold": "3744"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-charge", "difficulty": 2, "text_in": "Q=i*t;i=63;t=45", "gold": "2835"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-wave", "difficulty": 2, "text_in": "v=f*L;f=63;L=54", "gold": "3402"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-torque", "difficulty": 2, "text_in": "T=f*r;f=62;r=54", "gold": "3348"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-momentum", "difficulty": 2, "text_in": "p=m*v;m=46;v=72", "gold": "3312"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-wave", "difficulty": 2, "text_in": "v=f*L;f=63;L=44", "gold": "2772"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-ohm", "difficulty": 2, "text_in": "V=i*r;i=76;r=50", "gold": "3800"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-ohm", "difficulty": 2, "text_in": "V=i*r;i=63;r=64", "gold": "4032"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-spring", "difficulty": 2, "text_in": "F=k*x;k=74;x=69", "gold": "5106"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-heat", "difficulty": 2, "text_in": "Q=m*c*dT;m=46;c=64;dT=57", "gold": "167808"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-ohm", "difficulty": 2, "text_in": "V=i*r;i=47;r=73", "gold": "3431"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-distance", "difficulty": 2, "text_in": "d=v*t;v=66;t=51", "gold": "3366"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-distance", "difficulty": 2, "text_in": "d=v*t;v=49;t=57", "gold": "2793"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-spring", "difficulty": 2, "text_in": "F=k*x;k=57;x=56", "gold": "3192"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-ohm", "difficulty": 2, "text_in": "V=i*r;i=45;r=72", "gold": "3240"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-spring", "difficulty": 2, "text_in": "F=k*x;k=70;x=51", "gold": "3570"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-wave", "difficulty": 2, "text_in": "v=f*L;f=51;L=51", "gold": "2601"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-force", "difficulty": 2, "text_in": "F=m*a;m=72;a=74", "gold": "5328"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-heat", "difficulty": 2, "text_in": "Q=m*c*dT;m=75;c=74;dT=76", "gold": "421800"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-momentum", "difficulty": 2, "text_in": "p=m*v;m=63;v=69", "gold": "4347"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-weight", "difficulty": 2, "text_in": "W=m*g;m=60;g=52", "gold": "3120"}
+{"section": "niche_heldrange", "family": "physics", "template_id": "ph-torque", "difficulty": 2, "text_in": "T=f*r;f=51;r=78", "gold": "3978"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy cktydwqmiprqumt", "gold": "cktydwqmiprqumt"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 2, "text_in": "start 8 ddduuuduud", "gold": "8"}
+{"section": "basics", "family": "compare", "template_id": "compare-t0", "difficulty": 3, "text_in": "max 965 875", "gold": "965"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev ylfloau", "gold": "uaolfly"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 3, "text_in": "980-310-246+536-132", "gold": "828"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 2, "text_in": "22-14+67-86", "gold": "-11"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 3, "text_in": "start 8 ddduuddddddd", "gold": "0"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 2, "text_in": "swap b>i in bbndsrqe", "gold": "iindsrqe"}
+{"section": "basics", "family": "countchar", "template_id": "countchar-t0", "difficulty": 2, "text_in": "count c in auxcxyst", "gold": "1"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 2, "text_in": "swap g>w in cicoseg", "gold": "cicosew"}
+{"section": "basics", "family": "countchar", "template_id": "countchar-t0", "difficulty": 2, "text_in": "count u in tlwuqsxtfa", "gold": "1"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev mwtxgbeazl", "gold": "lzaebgxtwm"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 2, "text_in": "sort 0345367", "gold": "0334567"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 3, "text_in": "692+286-768+192+827", "gold": "1229"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy lbnltbqpsmybeij", "gold": "lbnltbqpsmybeij"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 3, "text_in": "start 6 uduuudududdudu", "gold": "8"}
+{"section": "basics", "family": "compare", "template_id": "compare-t0", "difficulty": 3, "text_in": "max 592 733", "gold": "733"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 3, "text_in": "sort 9691461338829", "gold": "1123346688999"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 2, "text_in": "copy vxtcfpjoiu", "gold": "vxtcfpjoiu"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy liqjurvmppdfhu", "gold": "liqjurvmppdfhu"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev xcosufqq", "gold": "qqfusocx"}
+{"section": "basics", "family": "countchar", "template_id": "countchar-t0", "difficulty": 3, "text_in": "count q in hbbwqqrbdwzln", "gold": "2"}
+{"section": "basics", "family": "brackets", "template_id": "brackets-t0", "difficulty": 3, "text_in": "depth )(()()(()(((", "gold": "no"}
+{"section": "basics", "family": "countchar", "template_id": "countchar-t0", "difficulty": 2, "text_in": "count n in onpgenbhla", "gold": "2"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 3, "text_in": "sort 373828617730426", "gold": "012233346677788"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 3, "text_in": "swap a>c in dvlxsaarwiprujpj", "gold": "dvlxsccrwiprujpj"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 3, "text_in": "start 5 uuuuddududdudduu", "gold": "7"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 2, "text_in": "start 1 uuddudddu", "gold": "0"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy piicwxkpsqhbkj", "gold": "piicwxkpsqhbkj"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 3, "text_in": "sort 20872630744", "gold": "00223446778"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 3, "text_in": "start 6 dudddddduud", "gold": "1"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 3, "text_in": "rev cuobskkpmnbon", "gold": "nobnmpkksbouc"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev llnlclujch", "gold": "hcjulclnll"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 3, "text_in": "695-370-214+466-281", "gold": "296"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 2, "text_in": "94-46-60+52", "gold": "40"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 2, "text_in": "copy gygyqygn", "gold": "gygyqygn"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 3, "text_in": "267+961-760-188-698", "gold": "-418"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 2, "text_in": "61-84+69+87", "gold": "133"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 2, "text_in": "start 0 uddududuud", "gold": "0"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 2, "text_in": "sort 711577844", "gold": "114457778"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy vrprtnquxoz", "gold": "vrprtnquxoz"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 2, "text_in": "sort 28800819", "gold": "00128889"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 3, "text_in": "145+624+661-382-742", "gold": "306"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 3, "text_in": "start 3 uddduuududdddddd", "gold": "-3"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 2, "text_in": "rev ubeswt", "gold": "twsebu"}
+{"section": "basics", "family": "countchar", "template_id": "countchar-t0", "difficulty": 2, "text_in": "count n in nmganxaos", "gold": "2"}
+{"section": "basics", "family": "brackets", "template_id": "brackets-t0", "difficulty": 3, "text_in": "depth (()(()()(())())", "gold": "no"}
+{"section": "basics", "family": "reverse", "template_id": "reverse-t0", "difficulty": 3, "text_in": "rev vkhrxaibkxkh", "gold": "hkxkbiaxrhkv"}
+{"section": "basics", "family": "compare", "template_id": "compare-t0", "difficulty": 2, "text_in": "max 69 51", "gold": "69"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 3, "text_in": "swap r>o in usjofgsnwyhaffkr", "gold": "usjofgsnwyhaffko"}
+{"section": "basics", "family": "addchain", "template_id": "addchain-t0", "difficulty": 2, "text_in": "20-26-34+11", "gold": "-29"}
+{"section": "basics", "family": "sortdigits", "template_id": "sortdigits-t0", "difficulty": 2, "text_in": "sort 6678565", "gold": "5566678"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 3, "text_in": "start 3 uududuuduuduu", "gold": "8"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 3, "text_in": "swap t>a in hitltwmuytqiibop", "gold": "hialawmuyaqiibop"}
+{"section": "basics", "family": "substitute", "template_id": "substitute-t0", "difficulty": 2, "text_in": "swap l>s in pfecll", "gold": "pfecss"}
+{"section": "basics", "family": "statetrack", "template_id": "statetrack-t0", "difficulty": 3, "text_in": "start 0 duuduududuudu", "gold": "3"}
+{"section": "basics", "family": "brackets", "template_id": "brackets-t0", "difficulty": 3, "text_in": "depth )())()))(()((((", "gold": "no"}
+{"section": "basics", "family": "copy", "template_id": "copy-t0", "difficulty": 3, "text_in": "copy oerehqqjmmwum", "gold": "oerehqqjmmwum"}
+{"section": "basics", "family": "compare", "template_id": "compare-t0", "difficulty": 3, "text_in": "max 300 597", "gold": "597"}
+{"section": "basics", "family": "compare", "template_id": "compare-t0", "difficulty": 3, "text_in": "max 462 214", "gold": "462"}

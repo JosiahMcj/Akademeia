@@ -1,0 +1,96 @@
+{"family": "addchain", "difficulty": 3, "template_id": "addchain-t0", "text_in": "596-402+416+453+321", "gold": "1384"}
+{"family": "addchain", "difficulty": 3, "template_id": "addchain-t0", "text_in": "517+284-496+556+748", "gold": "1609"}
+{"family": "addchain", "difficulty": 3, "template_id": "addchain-t0", "text_in": "253-149-239+346-137", "gold": "74"}
+{"family": "addchain", "difficulty": 2, "template_id": "addchain-t0", "text_in": "47-28+97+88", "gold": "204"}
+{"family": "addchain", "difficulty": 3, "template_id": "addchain-t0", "text_in": "812+456+976+450+212", "gold": "2906"}
+{"family": "addchain", "difficulty": 2, "template_id": "addchain-t0", "text_in": "43+71-63+53", "gold": "104"}
+{"family": "addchain", "difficulty": 2, "template_id": "addchain-t0", "text_in": "75+93+18+54", "gold": "240"}
+{"family": "addchain", "difficulty": 2, "template_id": "addchain-t0", "text_in": "27+59-13+87", "gold": "160"}
+{"family": "brackets", "difficulty": 3, "template_id": "brackets-t0", "text_in": "depth )())))()((()(()", "gold": "no"}
+{"family": "brackets", "difficulty": 3, "template_id": "brackets-t0", "text_in": "depth )(((((()))())", "gold": "no"}
+{"family": "brackets", "difficulty": 3, "template_id": "brackets-t0", "text_in": "depth )))()()()()))", "gold": "no"}
+{"family": "brackets", "difficulty": 3, "template_id": "brackets-t0", "text_in": "depth ))))((())()(", "gold": "no"}
+{"family": "brackets", "difficulty": 3, "template_id": "brackets-t0", "text_in": "depth ()()()()(((()", "gold": "no"}
+{"family": "brackets", "difficulty": 3, "template_id": "brackets-t0", "text_in": "depth )(()))))))(", "gold": "no"}
+{"family": "brackets", "difficulty": 3, "template_id": "brackets-t0", "text_in": "depth )((())))(((", "gold": "no"}
+{"family": "brackets", "difficulty": 3, "template_id": "brackets-t0", "text_in": "depth )()()()())(((((", "gold": "no"}
+{"family": "compare", "difficulty": 3, "template_id": "compare-t0", "text_in": "max 382 983", "gold": "983"}
+{"family": "compare", "difficulty": 3, "template_id": "compare-t0", "text_in": "max 140 206", "gold": "206"}
+{"family": "compare", "difficulty": 3, "template_id": "compare-t0", "text_in": "max 713 674", "gold": "713"}
+{"family": "compare", "difficulty": 3, "template_id": "compare-t0", "text_in": "max 603 606", "gold": "606"}
+{"family": "compare", "difficulty": 2, "template_id": "compare-t0", "text_in": "max 90 50", "gold": "90"}
+{"family": "compare", "difficulty": 3, "template_id": "compare-t0", "text_in": "max 207 571", "gold": "571"}
+{"family": "compare", "difficulty": 3, "template_id": "compare-t0", "text_in": "max 733 628", "gold": "733"}
+{"family": "compare", "difficulty": 3, "template_id": "compare-t0", "text_in": "max 892 587", "gold": "892"}
+{"family": "copy", "difficulty": 1, "template_id": "copy-t0", "text_in": "copy mdgbt", "gold": "mdgbt"}
+{"family": "copy", "difficulty": 2, "template_id": "copy-t0", "text_in": "copy lzgcxdhr", "gold": "lzgcxdhr"}
+{"family": "copy", "difficulty": 3, "template_id": "copy-t0", "text_in": "copy pbrietyioqvpr", "gold": "pbrietyioqvpr"}
+{"family": "copy", "difficulty": 2, "template_id": "copy-t0", "text_in": "copy yvpxmmgq", "gold": "yvpxmmgq"}
+{"family": "copy", "difficulty": 2, "template_id": "copy-t0", "text_in": "copy udgpsfcw", "gold": "udgpsfcw"}
+{"family": "copy", "difficulty": 2, "template_id": "copy-t0", "text_in": "copy teaqbxh", "gold": "teaqbxh"}
+{"family": "copy", "difficulty": 3, "template_id": "copy-t0", "text_in": "copy xxvcllfcpkab", "gold": "xxvcllfcpkab"}
+{"family": "copy", "difficulty": 1, "template_id": "copy-t0", "text_in": "copy fzizt", "gold": "fzizt"}
+{"family": "countchar", "difficulty": 1, "template_id": "countchar-t0", "text_in": "count z in zhto", "gold": "1"}
+{"family": "countchar", "difficulty": 1, "template_id": "countchar-t0", "text_in": "count c in mcycu", "gold": "2"}
+{"family": "countchar", "difficulty": 3, "template_id": "countchar-t0", "text_in": "count u in mzusfcjuojk", "gold": "2"}
+{"family": "countchar", "difficulty": 2, "template_id": "countchar-t0", "text_in": "count s in zaasmetu", "gold": "1"}
+{"family": "countchar", "difficulty": 1, "template_id": "countchar-t0", "text_in": "count n in nnwcy", "gold": "2"}
+{"family": "countchar", "difficulty": 2, "template_id": "countchar-t0", "text_in": "count f in molffe", "gold": "2"}
+{"family": "countchar", "difficulty": 2, "template_id": "countchar-t0", "text_in": "count p in plclfpwmqz", "gold": "2"}
+{"family": "countchar", "difficulty": 1, "template_id": "countchar-t0", "text_in": "count d in rdio", "gold": "1"}
+{"family": "modarith", "difficulty": 3, "template_id": "modarith-t0", "text_in": "221 mod 18", "gold": "5"}
+{"family": "modarith", "difficulty": 3, "template_id": "modarith-t0", "text_in": "669 mod 16", "gold": "13"}
+{"family": "modarith", "difficulty": 3, "template_id": "modarith-t0", "text_in": "239 mod 18", "gold": "5"}
+{"family": "modarith", "difficulty": 3, "template_id": "modarith-t0", "text_in": "119 mod 9", "gold": "2"}
+{"family": "modarith", "difficulty": 3, "template_id": "modarith-t0", "text_in": "570 mod 15", "gold": "0"}
+{"family": "modarith", "difficulty": 3, "template_id": "modarith-t0", "text_in": "481 mod 14", "gold": "5"}
+{"family": "modarith", "difficulty": 3, "template_id": "modarith-t0", "text_in": "609 mod 3", "gold": "0"}
+{"family": "modarith", "difficulty": 3, "template_id": "modarith-t0", "text_in": "819 mod 5", "gold": "4"}
+{"family": "physics", "difficulty": 3, "template_id": "ph-momentum", "text_in": "p=m*v;m=15;v=27", "gold": "405"}
+{"family": "physics", "difficulty": 3, "template_id": "ph-charge", "text_in": "Q=i*t;i=5;t=29", "gold": "145"}
+{"family": "physics", "difficulty": 3, "template_id": "ph-force", "text_in": "F=m*a;m=11;a=34", "gold": "374"}
+{"family": "physics", "difficulty": 3, "template_id": "ph-wave", "text_in": "v=f*L;f=5;L=37", "gold": "185"}
+{"family": "physics", "difficulty": 3, "template_id": "ph-weight", "text_in": "W=m*g;m=27;g=40", "gold": "1080"}
+{"family": "physics", "difficulty": 3, "template_id": "ph-charge", "text_in": "Q=i*t;i=22;t=12", "gold": "264"}
+{"family": "physics", "difficulty": 3, "template_id": "ph-ke", "text_in": "K=m*v*v/2;m=8;v=34", "gold": "4624"}
+{"family": "physics", "difficulty": 3, "template_id": "ph-weight", "text_in": "W=m*g;m=29;g=25", "gold": "725"}
+{"family": "reverse", "difficulty": 2, "template_id": "reverse-t0", "text_in": "rev jythhxlzg", "gold": "gzlxhhtyj"}
+{"family": "reverse", "difficulty": 2, "template_id": "reverse-t0", "text_in": "rev kefuoip", "gold": "pioufek"}
+{"family": "reverse", "difficulty": 3, "template_id": "reverse-t0", "text_in": "rev clsfkuhsgmnaa", "gold": "aanmgshukfslc"}
+{"family": "reverse", "difficulty": 3, "template_id": "reverse-t0", "text_in": "rev mcjnvybvufg", "gold": "gfuvbyvnjcm"}
+{"family": "reverse", "difficulty": 1, "template_id": "reverse-t0", "text_in": "rev drsb", "gold": "bsrd"}
+{"family": "reverse", "difficulty": 3, "template_id": "reverse-t0", "text_in": "rev ztwgaxqddstr", "gold": "rtsddqxagwtz"}
+{"family": "reverse", "difficulty": 2, "template_id": "reverse-t0", "text_in": "rev zhtlwxdgq", "gold": "qgdxwlthz"}
+{"family": "reverse", "difficulty": 3, "template_id": "reverse-t0", "text_in": "rev ovfofpxkzpq", "gold": "qpzkxpfofvo"}
+{"family": "sortdigits", "difficulty": 3, "template_id": "sortdigits-t0", "text_in": "sort 891127583818458", "gold": "111234557888889"}
+{"family": "sortdigits", "difficulty": 3, "template_id": "sortdigits-t0", "text_in": "sort 025217991364158", "gold": "011122345567899"}
+{"family": "sortdigits", "difficulty": 3, "template_id": "sortdigits-t0", "text_in": "sort 336844972280", "gold": "022334467889"}
+{"family": "sortdigits", "difficulty": 3, "template_id": "sortdigits-t0", "text_in": "sort 946468424005", "gold": "002444456689"}
+{"family": "sortdigits", "difficulty": 3, "template_id": "sortdigits-t0", "text_in": "sort 867626208034478", "gold": "002234466677888"}
+{"family": "sortdigits", "difficulty": 3, "template_id": "sortdigits-t0", "text_in": "sort 883272339712", "gold": "122233377889"}
+{"family": "sortdigits", "difficulty": 1, "template_id": "sortdigits-t0", "text_in": "sort 4796", "gold": "4679"}
+{"family": "sortdigits", "difficulty": 2, "template_id": "sortdigits-t0", "text_in": "sort 8582689303", "gold": "0233568889"}
+{"family": "statetrack", "difficulty": 3, "template_id": "statetrack-t0", "text_in": "start 6 ududdddduuddudu", "gold": "3"}
+{"family": "statetrack", "difficulty": 2, "template_id": "statetrack-t0", "text_in": "start 7 dddduddud", "gold": "2"}
+{"family": "statetrack", "difficulty": 3, "template_id": "statetrack-t0", "text_in": "start 8 uddduuudududuud", "gold": "9"}
+{"family": "statetrack", "difficulty": 2, "template_id": "statetrack-t0", "text_in": "start 6 uuudduddd", "gold": "5"}
+{"family": "statetrack", "difficulty": 3, "template_id": "statetrack-t0", "text_in": "start 5 uduudduudddddd", "gold": "1"}
+{"family": "statetrack", "difficulty": 3, "template_id": "statetrack-t0", "text_in": "start 5 dudduuuduuuuuuud", "gold": "11"}
+{"family": "statetrack", "difficulty": 3, "template_id": "statetrack-t0", "text_in": "start 9 uddududududdudu", "gold": "8"}
+{"family": "statetrack", "difficulty": 3, "template_id": "statetrack-t0", "text_in": "start 7 dduuuuuududuu", "gold": "12"}
+{"family": "substitute", "difficulty": 3, "template_id": "substitute-t0", "text_in": "swap e>v in asjmkttotelywwv", "gold": "asjmkttotvlywwv"}
+{"family": "substitute", "difficulty": 2, "template_id": "substitute-t0", "text_in": "swap o>p in wcfxcowudg", "gold": "wcfxcpwudg"}
+{"family": "substitute", "difficulty": 1, "template_id": "substitute-t0", "text_in": "swap e>g in eivzf", "gold": "givzf"}
+{"family": "substitute", "difficulty": 1, "template_id": "substitute-t0", "text_in": "swap w>l in wuynm", "gold": "luynm"}
+{"family": "substitute", "difficulty": 3, "template_id": "substitute-t0", "text_in": "swap g>z in foqlgdqpvfw", "gold": "foqlzdqpvfw"}
+{"family": "substitute", "difficulty": 2, "template_id": "substitute-t0", "text_in": "swap q>j in qnbpij", "gold": "jnbpij"}
+{"family": "substitute", "difficulty": 1, "template_id": "substitute-t0", "text_in": "swap q>l in hvwq", "gold": "hvwl"}
+{"family": "substitute", "difficulty": 2, "template_id": "substitute-t0", "text_in": "swap g>x in nzdlfamgb", "gold": "nzdlfamxb"}
+{"family": "vm", "difficulty": 3, "template_id": "vm-add,sub", "text_in": "push 10;push 38;push 33;add;sub;out", "gold": "-61"}
+{"family": "vm", "difficulty": 3, "template_id": "vm-add,sub", "text_in": "push 25;push 5;push 24;add;sub;out", "gold": "-4"}
+{"family": "vm", "difficulty": 3, "template_id": "vm-add,sub", "text_in": "push 17;push 7;push 39;add;sub;out", "gold": "-29"}
+{"family": "vm", "difficulty": 3, "template_id": "vm-add,sub", "text_in": "push 21;push 8;push 5;add;sub;out", "gold": "8"}
+{"family": "vm", "difficulty": 3, "template_id": "vm-add,mul", "text_in": "push 11;push 15;push 12;add;mul;out", "gold": "297"}
+{"family": "vm", "difficulty": 3, "template_id": "vm-mul,sub", "text_in": "push 35;push 28;push 5;mul;sub;out", "gold": "-105"}
+{"family": "vm", "difficulty": 3, "template_id": "vm-mul,sub", "text_in": "push 4;push 15;push 9;mul;sub;out", "gold": "-131"}
+{"family": "vm", "difficulty": 3, "template_id": "vm-mul,mul", "text_in": "push 36;push 37;push 5;mul;mul;out", "gold": "6660"}
