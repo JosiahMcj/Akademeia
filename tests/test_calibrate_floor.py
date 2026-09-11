@@ -1,5 +1,5 @@
 """The discrimination floor must fail strictly by default and pass only
-under the explicit operator-approved advisory flag (2026-08-22 amendment).
+under the explicit advisory flag of the dated 2026-08-22 amendment.
 A gate edit ships with proof it can still fail."""
 import sys
 from pathlib import Path

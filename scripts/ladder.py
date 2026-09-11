@@ -45,9 +45,9 @@ ARMS = ("direct50", "branch", "adaptive2")     # the registered Q1 arm set
 # est. full-run wall above which the rung aborts to the operator (exit 8).
 # Rung-1 limit raised 3600 -> 6000 by the 2026-08-14 amendment: the original
 # was calibrated for the accelerator (~750s/run); the gated CPU instrument
-# measured est 5079s/run, and the operator's standing directive accepts the
-# wall-clock trade while the GPU waits for memory windows.
-# Rung-3 limit 5400 -> 9000 by the 2026-08-26 operator-approved amendment
+# measured est 5079s/run, and the amendment accepts the wall-clock trade
+# while the GPU waits for memory windows.
+# Rung-3 limit 5400 -> 9000 by the dated 2026-08-26 amendment
 # (wall-clock budget, not a measurement gate): mps measured 8307s/run and
 # the wall was raised for it by dated amendment; the cpu path (16553s)
 # stays correctly over this limit.

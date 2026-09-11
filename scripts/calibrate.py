@@ -13,7 +13,7 @@ def derive_v2(a: dict, ap: dict, min_mixed_frac: float = 0.10,
               floor_advisory: bool = False) -> dict:
     """a/ap share seeds (stream-salt pairing).
 
-    floor_advisory: operator-approved 2026-08-22 amendment (mirrors v2
+    floor_advisory: the dated 2026-08-22 amendment (mirrors v2
     Amendment 10): when a pre-declared diagnostic has shown the bench
     registers >= 8 discordant items for a genuinely different arm on this
     instrument, a mixed-items floor miss indicates same-arm reproducibility,

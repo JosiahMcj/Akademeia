@@ -14,7 +14,7 @@ PY=.venv/bin/python
 export PYTHONUNBUFFERED=1
 export CUDA_VISIBLE_DEVICES=""    # no context beside the resident server
 export OMP_NUM_THREADS=16         # leave cores for the box's own tenants
-export AK_R1_FLOOR_ADVISORY=1     # operator-approved 2026-08-22 amendment:
+export AK_R1_FLOOR_ADVISORY=1     # the dated 2026-08-22 amendment:
                                   # rung-1 mixed floor advisory on this
                                   # instrument (diagnostic: 12 discordant)
 mkdir -p runs

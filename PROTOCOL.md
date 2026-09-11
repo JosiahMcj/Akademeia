@@ -441,3 +441,25 @@ cannot answer anything (the statistic-must-be-able-to-move law).
 about the scratchpad format on its own task. No comparison against the
 plain format is drawn, here or later: the tasks differ, so a cross-format
 score difference would not mean what it appears to mean.
+
+## Q4 rung 3 (2026-09-11, registered before the run)
+
+Q4 ran rungs 1-2 on the cpu instrument. Rung 3 runs on the gated mps
+instrument, for the same reason the ladder's rung 3 did: on cpu it costs
+roughly twice the wall clock, and mps has passed the full gate ladder (P0
+determinism, golden parity 0.5556 vs the 0.5889 reference inside the 0.1
+band, and the cpu<->mps pair gate at 0.022). The 2026-08-20 instrument
+amendment governs the reading: every CELL is single-instrument, and the
+pair gate licenses the banded cross-rung comparison. Nothing else about
+the Q4 design changes -- same curriculum shape, same three seeds, same
+A/A' salts, same FULL-TRACE grading, and the registered preflight still
+gates the rung inside the [0.20, 0.85] discrimination band with its own
+exit.
+
+Recorded in advance, because it is the reason this rung is worth running
+at all: rungs 1-2 showed the study is noise-limited (derived bands 0.40
+and 0.60, wider than the scores they surround). A third rung completes the
+ladder for the fourth question and tests whether the length-4 floor of
+0.000, held across 12 runs at two scales, moves at all. It does not turn a
+noise-limited study into a powered one, and no claim will be made as if it
+had.

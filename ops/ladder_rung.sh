@@ -63,7 +63,7 @@ echo "[ladder r$RUNG] baseline direct50 A/A' (resumes)"
 run_gpu $PY scripts/ladder.py baseline --rung "$RUNG" --device "$DEVICE"
 
 echo "[ladder r$RUNG] calibrate (mechanical, freezes one way)"
-# AK_R1_FLOOR_ADVISORY=1 applies the operator-approved 2026-08-22 amendment
+# AK_R1_FLOOR_ADVISORY=1 applies the dated 2026-08-22 amendment
 # (rung 1 only): mixed-items floor advisory after the discrimination
 # diagnostic passed on this instrument. Default strict.
 CAL_FLAGS=""

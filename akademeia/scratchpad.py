@@ -5,8 +5,8 @@ own niche under the same held-out laws.
 
 This module is deliberately STANDALONE: nothing in the package imports it
 (test-enforced), so it cannot perturb the ladder machinery. Wiring it into
-FAMILIES/pool/bench is a separate, dated amendment gated on the operator's
-wave-1 call AND a preflight inside the discrimination band.
+FAMILIES/pool/bench is a separate, dated amendment gated on a wave-1 call
+AND a preflight inside the discrimination band.
 
 Registered design, each rule test-enforced:
   - Format: input `E=a*b*c;a=3;b=5;c=2`, output `15;30$` -- the ';'-separated
