@@ -35,6 +35,7 @@ NICHE = "scratchpad"
 POOL_FILE, POOL_KEY = "pool_q4.jsonl", "pool_q4_hash"
 EXTRA = (NICHE,)
 SEEDS = (11, 22, 33)
+EXT_SEEDS = (44, 55, 66)     # the 2026-09-11 seed-extension amendment
 BAND = (0.20, 0.85)          # the registered discrimination band
 
 def q4_curriculum(budget: int) -> Curriculum:
@@ -74,6 +75,39 @@ def cmd_arms(rung, device):
     run(rung, device, SEEDS, f"q4-r{rung}-A", 0)
     run(rung, device, SEEDS, f"q4-r{rung}-Aprime", 1)
 
+def cmd_extend(rung, device):
+    """Seed extension (2026-09-11 amendment): three MORE seeds under their
+    own tags. The frozen thresholds are untouched -- this buys a better
+    estimate of the mean, not a new gate."""
+    run(rung, device, EXT_SEEDS, f"q4-r{rung}-A-ext", 0)
+    run(rung, device, EXT_SEEDS, f"q4-r{rung}-Aprime-ext", 1)
+
+def cmd_pooled(rung, device, journal):
+    """Descriptive pooled report over all six seeds. No gate, no promotion:
+    the registered thresholds stay as they were derived."""
+    import statistics
+    finals, extrap = [], []
+    for tag in (f"q4-r{rung}-A", f"q4-r{rung}-Aprime",
+                f"q4-r{rung}-A-ext", f"q4-r{rung}-Aprime-ext"):
+        f = ROOT / "runs" / f"arm-{tag}.json"
+        if not f.exists():
+            print(f"missing {f.name}; run the extend stage first"); sys.exit(2)
+        a = json.loads(f.read_text())
+        finals += a["final"]
+        extrap += list(a["heldrange"].values())
+    row = {"kind": "study", "study": "Q4-pooled", "rung": rung,
+           "device": device, "n_runs": len(finals),
+           "niche_unseen_runs": [round(x, 4) for x in finals],
+           "niche_unseen_mean": round(statistics.mean(finals), 4),
+           "niche_unseen_sd": round(statistics.stdev(finals), 4),
+           "sem": round(statistics.stdev(finals) / len(finals) ** 0.5, 4),
+           "extrap_runs": extrap,
+           "extrap_all_zero": all(float(x) == 0.0 for x in extrap),
+           "note": "descriptive pooled estimate over 6 seeds; the frozen "
+                   "thresholds are unchanged and no gate is re-run"}
+    journal.append(row)
+    print(json.dumps(row, indent=1, default=str))
+
 def cmd_verdict(rung, device, journal):
     a = json.load(open(ROOT / "runs" / f"arm-q4-r{rung}-A.json"))
     ap = json.load(open(ROOT / "runs" / f"arm-q4-r{rung}-Aprime.json"))
@@ -98,7 +132,8 @@ def cmd_verdict(rung, device, journal):
 
 def main():
     ap_ = argparse.ArgumentParser()
-    ap_.add_argument("stage", choices=["preflight", "arms", "verdict"])
+    ap_.add_argument("stage", choices=["preflight", "arms", "verdict",
+                                       "extend", "pooled"])
     ap_.add_argument("--rung", type=int, required=True, choices=sorted(RUNGS))
     ap_.add_argument("--device", default="cpu")
     args = ap_.parse_args()
@@ -107,6 +142,10 @@ def main():
         cmd_preflight(args.rung, args.device, journal)
     elif args.stage == "arms":
         cmd_arms(args.rung, args.device)
+    elif args.stage == "extend":
+        cmd_extend(args.rung, args.device)
+    elif args.stage == "pooled":
+        cmd_pooled(args.rung, args.device, journal)
     else:
         cmd_verdict(args.rung, args.device, journal)
 

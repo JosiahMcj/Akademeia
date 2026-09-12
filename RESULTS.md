@@ -113,35 +113,49 @@ a different task from the plain format, and it is registered as such -- what
 follows is a statement about the scratchpad task on its own terms, never a
 comparison against the plain one.
 
-| rung | novel combinations (6 runs) | one step longer than training | derived noise band |
-|---|---|---|---|
-| 1 | 0.325 | 0.000 | 0.40 |
-| 2 | 0.411 | 0.000 | 0.60 |
-| 3 | 0.556 | 0.000 | 0.40 |
+| rung | novel combinations | one step longer than training |
+|---|---|---|
+| 1 | 0.336 +- 0.015 (n=12) | 0.000 |
+| 2 | 0.389 +- 0.033 (n=12) | 0.000 |
+| 3 | 0.544 +- 0.028 (n=12) | 0.000 |
 
-**Length extrapolation is a hard zero: 0.000 in 18 runs out of 18, across all
-three rungs.** One more factor in the chain than training ever showed, using
-only symbols the model knows, in a format it has already demonstrated on
-novel combinations -- and every run, at every scale, scores nothing. Twelve
-times the parameters moved it not at all. Writing the intermediates down did
-not buy the step that the depth wall in Study S2 is made of. This diagnostic
-is reported and never gated, exactly as registered, so nothing is promoted or
-condemned on it. It also needs no noise band: an exact floor across 18
-independent runs is not a question of statistical resolution.
+**Length extrapolation is a hard zero: 0.000 in 36 runs out of 36, across
+all three rungs.** One more factor in the chain than training ever showed,
+using only symbols the model knows, in a format it has already demonstrated
+on novel combinations -- and every run, at every scale, scores nothing.
+Twelve times the parameters moved it not at all. Writing the intermediates
+down did not buy the step that the depth wall in Study S2 is made of. This
+diagnostic is reported and never gated, exactly as registered, so nothing is
+promoted or condemned on it. It also needs no uncertainty interval: an exact
+floor across 36 independent runs is not a question of statistical resolution.
 
-**The format itself is learnable, and the trend is suggestive rather than
-established.** Novel combinations of trained symbols rise monotonically,
-0.325 -> 0.411 -> 0.556. But the derived noise bands are 0.40, 0.60 and 0.40,
-and the whole three-rung rise is 0.231 -- so every individual step, and the
-total, sit inside the band. Three independent rungs each moving the same
-direction is a pattern worth reporting; at six runs per rung it is not a
-powered claim, and I do not make one. What IS established here is the floor.
+**The format itself is learnable, and improves with scale unevenly.** Each
+rung was first measured at three seeds and then extended by three more,
+registered in advance, for twelve runs per rung; the thresholds frozen from
+the original pairs were left exactly as they were, and what follows is
+descriptive. Rung 1 to rung 3 moves +0.208 against a combined uncertainty of
+0.031 -- about six and a half times its own uncertainty. The intermediate
+steps are not equal: rung 1 to rung 2 is +0.053 against 0.036, barely larger
+than the uncertainty itself, while rung 2 to rung 3 is +0.156 against 0.043.
+Most of the gain arrives in the last step, and the first step is not
+distinguishable from noise at this sample size.
 
-**Why the resolution is poor, stated plainly.** One arm at rung 2 spans 0.217
-to 0.617 across its three seeds. This task is a per-seed lottery of the same
-kind Study S1 measures on the vm niche. Any further Q4 work should buy more
-SEEDS before more scale: another rung would sharpen nothing that matters,
-while a wider seed set would turn the suggestive trend into a real answer.
+The extension is also a caution worth recording. At three seeds per rung the
+rung 1 to rung 2 gap read 0.086; at twelve it reads 0.053. Doubling the seeds
+shrank the apparent effect rather than confirming it, which is what small
+samples usually do to a promising-looking step.
+
+Rung 3 was measured on a different instrument from rungs 1 and 2. The gated
+difference between those two instruments is 0.022, against a rung 2 to rung 3
+step of 0.156, so the step is not an artifact of the change -- but it is a
+confound the reader should hold, and no cross-instrument claim is made
+outside the gated band.
+
+**On the per-seed lottery.** Individual runs still scatter widely -- one
+rung-2 arm spanned 0.217 to 0.617 across its three original seeds -- so this
+task behaves like the lottery Study S1 measures on the vm niche. Twelve runs
+per rung is enough to place the means; it is not enough to make any claim
+about single-run behaviour, and none is made.
 
 ## What this does not cover
 
@@ -150,10 +164,10 @@ while a wider seed set would turn the suggestive trend into a real answer.
   projects to several times that -- it belongs at greater scale than I
   could reach here. Q2's transfer number and Q1's rank question both
   point at rung 4 as the experiment that matters next.
-- **Q4 at more seeds.** All three rungs are measured, but the study is
-  noise-limited rather than scale-limited (see its bands above); a wider
-  seed set, not a fourth rung, is the experiment that would sharpen the
-  trend. The floor result does not need it.
+- **Q4 at more than twelve seeds.** All three rungs are measured at twelve
+  runs each. That resolves the overall trend and leaves the first step
+  (rung 1 to rung 2) unresolved; more seeds would settle it, though what it
+  would settle is a detail of the curve rather than the finding.
 - Rungs 1-2 and rung 3 were measured on two different instruments. Every
   cell is single-instrument by construction, that pair is gated, and no raw
   cross-instrument score comparison is made outside the gated band.

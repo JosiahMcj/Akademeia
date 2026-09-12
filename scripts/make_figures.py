@@ -184,39 +184,53 @@ def fig_q4():
                   key=lambda r: r["rung"])
     if not rows:
         return
+    # prefer the 6-seed pooled records when the extension has run
+    pooled = {r["rung"]: r for r in jrows(kind="study", study="Q4-pooled")}
     fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.9), dpi=160)
     fig.patch.set_facecolor(SURFACE)
     ax = axes[0]; style(ax)
     def spread(i, n):
         """Deterministic fan so overlapping runs stay countable."""
-        return [i + (k - (n - 1) / 2) * 0.055 for k in range(n)]
+        return [i + (k - (n - 1) / 2) * (0.30 / max(n - 1, 1)) for k in range(n)]
     for i, r in enumerate(rows):
-        vals = r["niche_unseen_A"] + r["niche_unseen_Aprime"]
-        ax.scatter(spread(i, len(vals)), vals, s=38, color=BLUE, alpha=0.8,
-                   edgecolors=SURFACE, linewidths=1.2, zorder=3)
-        m = r["niche_unseen_mean"]
+        pr = pooled.get(r["rung"])
+        if pr:
+            vals, m, se = pr["niche_unseen_runs"], pr["niche_unseen_mean"], pr["sem"]
+        else:
+            vals = r["niche_unseen_A"] + r["niche_unseen_Aprime"]
+            m, se = r["niche_unseen_mean"], None
+        ax.scatter(spread(i, len(vals)), vals, s=30, color=BLUE, alpha=0.75,
+                   edgecolors=SURFACE, linewidths=1.0, zorder=3)
         ax.plot([i - 0.22, i + 0.22], [m, m], color=INK, linewidth=2, zorder=4)
-        ax.annotate(f"mean {m:.2f}", (i + 0.22, m), color=INK, fontsize=8.6,
-                    ha="left", va="center", xytext=(6, 0),
-                    textcoords="offset points")
-        ax.annotate(f"noise band {r['thresholds']['noise_final']:.2f}",
-                    (i, 0.02), color=INK2, fontsize=7.6, ha="center",
-                    va="bottom")
-    ax.set_xlim(-0.5, len(rows) - 0.22)
+        if se:
+            ax.plot([i, i], [m - se, m + se], color=INK, linewidth=1.4, zorder=4)
+        label = f"{m:.2f}" + (f" \u00b1 {se:.2f}" if se else "")
+        ax.annotate(label, (i, m), color=INK, fontsize=8.8, ha="center",
+                    va="bottom", xytext=(0, 9), textcoords="offset points",
+                    bbox=dict(boxstyle="round,pad=0.15", fc=SURFACE,
+                              ec="none"))
+        ax.annotate(f"n={len(vals)}", (i, 0.02), color=INK2, fontsize=7.6,
+                    ha="center", va="bottom")
+    ax.set_xlim(-0.45, len(rows) - 0.55)
     ax.set_xticks(range(len(rows)))
     ax.set_xticklabels([f"rung {r['rung']}" for r in rows], fontsize=9,
                        color=INK)
     ax.set_ylim(-0.05, 1.0)
-    ax.set_ylabel("full-trace exact match (6 runs)", color=INK2, fontsize=9)
+    ax.set_ylabel("full-trace exact match (per run)", color=INK2, fontsize=9)
     ax.set_title("novel combinations of trained symbols", color=INK,
                  fontsize=10, loc="left")
     ax = axes[1]; style(ax)
     n = 0
     for i, r in enumerate(rows):
-        vals = (list(r["extrap_diagnostic"]["A"].values())
-                + list(r["extrap_diagnostic"]["Aprime"].values()))
+        pr = pooled.get(r["rung"])
+        if pr:
+            vals = [float(v) for v in pr["extrap_runs"]]
+        else:
+            vals = (list(r["extrap_diagnostic"]["A"].values())
+                    + list(r["extrap_diagnostic"]["Aprime"].values()))
         n += len(vals)
-        xs_ = [i + (k - (len(vals) - 1) / 2) * 0.055 for k in range(len(vals))]
+        xs_ = [i + (k - (len(vals) - 1) / 2) * (0.30 / max(len(vals) - 1, 1))
+               for k in range(len(vals))]
         ax.scatter(xs_, vals, s=38, color=ORANGE, alpha=0.8,
                    edgecolors=SURFACE, linewidths=1.2, zorder=3)
     ax.set_xlim(-0.5, len(rows) - 0.5)

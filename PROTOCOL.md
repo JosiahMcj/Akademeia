@@ -463,3 +463,32 @@ ladder for the fourth question and tests whether the length-4 floor of
 0.000, held across 12 runs at two scales, moves at all. It does not turn a
 noise-limited study into a powered one, and no claim will be made as if it
 had.
+
+## Amendment (2026-09-11): Q4 seed extension, registered before the runs
+
+Q4 now has all three rungs, and across them the pattern is consistent:
+novel-combination scores rise monotonically (0.325, 0.411, 0.556) while the
+derived noise bands (0.40, 0.60, 0.40) are wider than the rise. The trend is
+therefore reported as suggestive and not as a powered claim. The limiting
+factor is per-seed variance, not scale -- one rung-2 arm spans 0.217 to
+0.617 across its three seeds -- so the experiment that sharpens Q4 is more
+seeds, not another rung.
+
+Registered here, before the runs: three additional seeds (44, 55, 66) at
+each rung, under their own tags, at the same two stream salts, with
+everything else identical. Registered consequences:
+
+1. The frozen thresholds are NOT re-derived and NOT re-frozen. They stay as
+   they were calibrated from the original A/A' pair. This extension buys a
+   better estimate of the mean; it does not move or re-open any gate, and no
+   verdict is recomputed against it.
+2. The pooled report is DESCRIPTIVE and labelled as such: n, the per-run
+   scores, the mean, the sample spread and its standard error. No gate, no
+   promotion, no significance claim that the registered design did not
+   already license.
+3. The length-4 extrapolation diagnostic remains reported and never gated at
+   every rung. Its published claim is an exact floor across runs, so the
+   extension can only strengthen or falsify it by adding runs -- which is
+   the point of running it.
+4. Seeds were chosen before any of them ran and are recorded here; no seed
+   is added, dropped or replaced after seeing its result.
