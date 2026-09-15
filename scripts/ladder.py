@@ -112,6 +112,54 @@ def cmd_baseline(rung, device):
     run_curriculum(cfg, c, NICHE, tag=f"ladder-r{rung}-direct50-Aprime",
                    stream_salt=1, phase=f"L{rung}", device=device)
 
+EXT_SEEDS = (44, 55, 66)      # the 2026-09-14 rank seed-extension amendment
+
+def cmd_extend(rung, journal, device):
+    """Seed extension for the two arms whose ORDER flipped at rung 3
+    (2026-09-14 amendment). Runs under their own -ext tags: no frozen
+    threshold is re-derived, no verdict is recomputed, and the report this
+    feeds is descriptive. branch is excluded deliberately -- its position is
+    separated with power at every rung, and its warm-start cores no longer
+    exist to reproduce."""
+    cfg = RUNGS[rung]
+    c = direct50(NICHE, cfg.total_tokens); validate(c, cfg.total_tokens)
+    run_curriculum(cfg, c, NICHE, tag=f"ladder-r{rung}-direct50-A-ext",
+                   seeds=EXT_SEEDS, stream_salt=0, phase=f"L{rung}-ext",
+                   device=device)
+    _adaptive2_arm(rung, journal, device, seeds=EXT_SEEDS,
+                   tag=f"ladder-r{rung}-adaptive2-ext")
+
+def cmd_rankpooled(rung, journal, device):
+    """Descriptive pooled comparison of the two arms at this rung."""
+    import statistics as st
+    out = {}
+    for name in ("direct50-A", "adaptive2"):
+        vals = []
+        for suffix in ("", "-ext"):
+            f = ROOT / "runs" / f"arm-ladder-r{rung}-{name}{suffix}.json"
+            if not f.exists():
+                print(f"missing {f.name}; run the extend stage first"); sys.exit(2)
+            vals += json.loads(f.read_text())["final"]
+        out[name] = vals
+    a, b = out["direct50-A"], out["adaptive2"]
+    sem = lambda x: st.stdev(x) / len(x) ** 0.5
+    d = st.mean(b) - st.mean(a)
+    se = (sem(a) ** 2 + sem(b) ** 2) ** 0.5
+    row = {"kind": "study", "study": "Q1-rank-pooled", "rung": rung,
+           "device": device, "n_per_arm": len(a),
+           "direct50_runs": [round(x, 4) for x in a],
+           "adaptive2_runs": [round(x, 4) for x in b],
+           "direct50_mean": round(st.mean(a), 4), "direct50_sem": round(sem(a), 4),
+           "adaptive2_mean": round(st.mean(b), 4), "adaptive2_sem": round(sem(b), 4),
+           "difference": round(d, 4), "difference_uncertainty": round(se, 4),
+           "ratio": round(abs(d) / se, 2) if se else None,
+           "nominal_order": ("adaptive2 > direct50" if d > 0
+                             else "direct50 > adaptive2"),
+           "note": "descriptive pooled estimate; the registered rung verdicts "
+                   "and frozen thresholds are unchanged and not recomputed"}
+    journal.append(row)
+    print(json.dumps(row, indent=1, default=str))
+
 def cmd_arms(rung, journal, device):
     cfg = RUNGS[rung]
     half = cfg.total_tokens // 2
@@ -159,11 +207,20 @@ def cmd_arms(rung, journal, device):
     c = branch_curr(NICHE, half); validate(c, half)
     run_curriculum(cfg, c, NICHE, tag=f"ladder-r{rung}-branch",
                    init_from=core_ckpts, phase=f"L{rung}", device=device)
-    # adaptive2: niche pinned 0.5, basics steered (v2 Amendment 8 design)
+    _adaptive2_arm(rung, journal, device)
+
+def _adaptive2_arm(rung, journal, device, seeds=SEEDS, tag=None):
+    """adaptive2: niche pinned 0.5, basics steered (v2 Amendment 8 design).
+    seeds/tag are parameters only so the registered seed extension can reuse
+    this exact code path rather than a second copy of it."""
+    cfg = RUNGS[rung]
+    pool = load_pool(ROOT / "data" / "pool.jsonl")
+    tok = CharTokenizer.load(ROOT / "freeze" / "tokenizer.json")
+    manifest = json.load(open(ROOT / "freeze" / "manifest.json"))
     hashes = {"bench": manifest[f"bench_hash_{NICHE}"],
               "pool": manifest["pool_hash"],
               "tokenizer": manifest["tokenizer_hash"], "substrate": cfg.hash()}
-    tag = f"ladder-r{rung}-adaptive2"
+    tag = tag or f"ladder-r{rung}-adaptive2"
     arm_path = ROOT / "runs" / f"arm-{tag}.json"
     if arm_path.exists():
         # Same resume law as run_curriculum: hashes AND device AND host --
@@ -179,7 +236,7 @@ def cmd_arms(rung, journal, device):
     curves, info = {}, {}
     wait_for_load()
     with device_lock(device):
-        for seed in SEEDS:
+        for seed in seeds:
             t0 = time.monotonic()
             # Per-seed curve cache, same stamp law as run_curriculum: a
             # mid-arm kill must cost at most ONE run. "informativeness" is
@@ -267,7 +324,8 @@ def cmd_verdict(rung, journal):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("stage", choices=["probe", "baseline", "calibrate",
-                                      "arms", "verdict"])
+                                      "arms", "verdict", "extend",
+                                      "rankpooled"])
     ap.add_argument("--rung", type=int, required=True, choices=sorted(RUNGS))
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--floor-advisory", action="store_true")
@@ -281,6 +339,10 @@ def main():
         calibrate_rung(args.rung, NICHE, floor_advisory=args.floor_advisory)
     elif args.stage == "arms":
         cmd_arms(args.rung, journal, args.device)
+    elif args.stage == "extend":
+        cmd_extend(args.rung, journal, args.device)
+    elif args.stage == "rankpooled":
+        cmd_rankpooled(args.rung, journal, args.device)
     else:
         cmd_verdict(args.rung, journal)
 

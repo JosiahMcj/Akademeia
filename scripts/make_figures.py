@@ -89,12 +89,18 @@ def fig_ladder():
         pair = b["rank_agreement_vs_prev"]["disagreements"][0]
         gap = abs(b["finals"][pair[0]] - b["finals"][pair[1]])
         i = rungs.index(b["rung"])
-        ax.text(0.02, 0.04,
-                f"ordinal measure flips at rung {b['rung']}: {pair[0]} vs "
+        note = (f"ordinal measure flips at rung {b['rung']}: {pair[0]} vs "
                 f"{pair[1]}, gap {gap:.3f}\n"
-                f"-- the one pair no gate ever separated",
-                transform=ax.transAxes, color=INK2, fontsize=7.4,
-                ha="left", va="bottom")
+                f"-- the one pair no gate ever separated")
+        rp = [r for r in jrows(kind="study", study="Q1-rank-pooled")
+              if r["rung"] == b["rung"]]
+        if rp:
+            r0 = rp[-1]
+            note += (f"\nat {r0['n_per_arm']} runs/arm the gap is "
+                     f"{abs(r0['difference']):.3f} +- "
+                     f"{r0['difference_uncertainty']:.3f}")
+        ax.text(0.02, 0.04, note, transform=ax.transAxes, color=INK2,
+                fontsize=7.2, ha="left", va="bottom")
     ax = axes[1]; style(ax)
     s1 = jrows(kind="study", study="S1-Q3")
     if s1:

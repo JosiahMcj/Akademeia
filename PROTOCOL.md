@@ -492,3 +492,34 @@ everything else identical. Registered consequences:
    the point of running it.
 4. Seeds were chosen before any of them ran and are recorded here; no seed
    is added, dropped or replaced after seeing its result.
+
+## Amendment (2026-09-14): Q1 rung-3 rank seed extension, registered before the runs
+
+The most prominent caveat in these results is my own: at rung 3 the ordinal
+rank measure flipped, and the flip rests on a 0.022 gap between direct50 and
+adaptive2 measured at THREE seeds per arm. The Q4 seed extension has since
+shown what three seeds can do to a gap of that size -- doubling the seeds
+there moved an apparent 0.086 step down to 0.053. The same scrutiny is owed
+to the flagship question rather than only to the cheapest one.
+
+Registered here, before the runs: three additional seeds (44, 55, 66) for
+direct50-A and adaptive2 at rung 3, under their own -ext tags, on the gated
+mps instrument, everything else identical. Registered consequences:
+
+1. No frozen threshold is re-derived and NO VERDICT IS RECOMPUTED. The
+   registered rung-3 verdicts stand exactly as journaled, including the rank
+   agreement of 0.667. This extension cannot promote, demote, or reverse a
+   registered outcome; it can only describe the gap more precisely.
+2. The report is descriptive and labelled so: per-arm runs, means, standard
+   errors, the difference and its uncertainty. No significance claim beyond
+   what the registered design licenses.
+3. branch is deliberately excluded. Its last position is separated with
+   power at every rung (25 discordant items, p=0.0005 at rung 3), so it is
+   not what the flip turns on -- and its warm-start cores were lost with the
+   checkpoints, so reproducing it would mean retraining a different thing.
+   The pooled report therefore covers the flipped PAIR, not the full ranking.
+4. Both outcomes are publishable and neither changes the registered verdict:
+   if the pair remains inseparable at twelve runs, the caveat I published is
+   confirmed on its own terms; if a separation appears, the honest reading is
+   that the ordinal measure was reporting something real that three seeds
+   could not resolve. The seeds are fixed in advance either way.

@@ -60,13 +60,24 @@ borne out.
 But the single discordant pair is (adaptive2, direct50), separated at rung
 3 by 0.022 -- against that rung's own noise band of 0.15, a sign test of
 P=0.26, and a measured difference of 0.022 between the two instruments
-involved. It is the
-one pair that no gate separated at any rung. The two concordant pairs both
-involve branch, which sits last at every rung with power. So the honest
-reading is that a ranking with real separation in it survived an order of
-magnitude, while an ordinal statistic with no noise floor flipped a pair
-that was never distinguishable in the first place. A rank-agreement number
-is only as meaningful as the gaps underneath it.
+involved. It is the one pair that no gate separated at any rung. The two
+concordant pairs both involve branch, which sits last at every rung with
+power.
+
+**I then went back and measured that pair harder, because the whole caveat
+rested on three seeds per arm.** Three more seeds were added to each of
+direct50 and adaptive2 at rung 3, registered in advance, with the rung-3
+verdicts explicitly not recomputed. At six runs per arm the two arms sit at
+0.603 +- 0.016 and 0.594 +- 0.030: a difference of 0.008 against an
+uncertainty of 0.034, which is a quarter of its own error bar, and a
+head-to-head split of 3 to 3. The gap that produced the flip shrank to
+roughly a third of its three-seed size once the seeds doubled.
+
+So the honest reading is that a ranking with real separation in it survived
+an order of magnitude, while an ordinal statistic with no noise floor
+flipped a pair that was never distinguishable in the first place -- and that
+reading now rests on measurement rather than on my argument about it. A
+rank-agreement number is only as meaningful as the gaps underneath it.
 
 ## Q2: the composition wall is the last thing scale moves
 
