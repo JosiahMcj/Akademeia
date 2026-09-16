@@ -88,6 +88,49 @@ def cmd_runs(rung: int, device: str):
                    stream_salt=1, phase="S2",
                    pool_file=POOL_FILE, pool_key=POOL_KEY, device=device)
 
+EXT_SEEDS = (44, 55, 66)     # the 2026-09-15 S2 seed-extension amendment
+
+def cmd_extend(rung: int, device: str):
+    """Seed extension (2026-09-15 amendment): three more seeds under their own
+    tags. The registered S2 verdict is NOT recomputed and no threshold moves;
+    this only sharpens the transfer estimate the verdict was read from."""
+    cfg = RUNGS[rung]
+    c = direct50("physics", cfg.total_tokens)
+    validate(c, cfg.total_tokens)
+    run_curriculum(cfg, c, "physics", tag=f"s2-r{rung}-direct50-A-ext",
+                   seeds=EXT_SEEDS, stream_salt=0, phase="S2-ext",
+                   pool_file=POOL_FILE, pool_key=POOL_KEY, device=device)
+    run_curriculum(cfg, c, "physics", tag=f"s2-r{rung}-direct50-Aprime-ext",
+                   seeds=EXT_SEEDS, stream_salt=1, phase="S2-ext",
+                   pool_file=POOL_FILE, pool_key=POOL_KEY, device=device)
+
+def cmd_pooled(rung: int, device: str):
+    """Descriptive pooled estimate of unseen-product transfer, computed from
+    the stored arm files only -- no checkpoint is needed or consulted."""
+    import statistics as st
+    journal = Journal(ROOT / "runs" / "journal.jsonl")
+    prod, other = [], []
+    for tag in (f"s2-r{rung}-direct50-A", f"s2-r{rung}-direct50-Aprime",
+                f"s2-r{rung}-direct50-A-ext", f"s2-r{rung}-direct50-Aprime-ext"):
+        f = ROOT / "runs" / f"arm-{tag}.json"
+        if not f.exists():
+            print(f"missing {f.name}; run the extend stage first"); sys.exit(2)
+        sp = _product_split(json.loads(f.read_text()))
+        prod += list(sp["product"].values())
+        other += list(sp["other"].values())
+    sem = lambda x: st.stdev(x) / len(x) ** 0.5
+    row = {"kind": "study", "study": "S2-pooled", "rung": rung,
+           "device": device, "n_runs": len(prod),
+           "unseen_product_runs": [round(x, 4) for x in prod],
+           "unseen_product_mean": round(st.mean(prod), 4),
+           "unseen_product_sem": round(sem(prod), 4),
+           "unseen_other_mean": round(st.mean(other), 4),
+           "unseen_other_sem": round(sem(other), 4),
+           "note": "descriptive pooled estimate; the registered S2 verdict and "
+                   "its margin are unchanged and not recomputed"}
+    journal.append(row)
+    print(json.dumps(row, indent=1, default=str))
+
 def _product_split(arm: dict) -> dict:
     """Per-seed accuracy on unseen PRODUCT vs NON-PRODUCT bench items."""
     bench = load_bench(ROOT / "freeze" / "bench-physics.jsonl")
@@ -166,7 +209,8 @@ def cmd_verdict(rung: int, device: str):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("stage", choices=["build", "runs", "verdict"])
+    ap.add_argument("stage", choices=["build", "runs", "verdict", "extend",
+                                      "pooled"])
     ap.add_argument("--rung", type=int, choices=sorted(RUNGS))
     ap.add_argument("--device", default="cpu")
     args = ap.parse_args()
@@ -176,6 +220,10 @@ def main():
         print(f"{args.stage} needs --rung"); sys.exit(2)
     elif args.stage == "runs":
         cmd_runs(args.rung, args.device)
+    elif args.stage == "extend":
+        cmd_extend(args.rung, args.device)
+    elif args.stage == "pooled":
+        cmd_pooled(args.rung, args.device)
     else:
         cmd_verdict(args.rung, args.device)
 

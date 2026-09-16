@@ -523,3 +523,32 @@ mps instrument, everything else identical. Registered consequences:
    confirmed on its own terms; if a separation appears, the honest reading is
    that the ordinal measure was reporting something real that three seeds
    could not resolve. The seeds are fixed in advance either way.
+
+## Amendment (2026-09-15): S2 rung-3 seed extension, registered before the runs
+
+Q2's most quotable result is the one that moved: unseen three-variable
+product transfer sat at the floor for two rungs (0.048, 0.063) and then read
+0.270 at rung 3. That number rests on three seeds, and two seed extensions
+in this campaign have now each moved a three-seed estimate materially -- Q4's
+rung 1-2 step fell from 0.086 to 0.053, and the rung-3 rank gap fell from
+0.022 to 0.008. A positive, surprising, three-seed number is exactly the kind
+this campaign has learned to distrust, and it should be tested before it is
+published rather than after.
+
+Registered here, before the runs: three additional seeds (44, 55, 66) for
+the S2 arms at rung 3, under their own -ext tags, on the gated mps
+instrument, everything else identical. Registered consequences:
+
+1. The registered S2 verdict (DEPTH-LIMITED) and its margin are NOT
+   recomputed. This extension sharpens the transfer estimate the verdict was
+   read from; it cannot change the verdict, and none of the rung-1 or rung-2
+   numbers are touched.
+2. The pooled report is descriptive: n, the per-run product scores, the mean
+   and its standard error, computed from the STORED ARM FILES only. No
+   checkpoint is consulted, which also means this extension is unaffected by
+   the loss of the rung-3 checkpoints.
+3. Both outcomes are publishable and are written down here in advance. If
+   0.270 survives at six runs per arm, "the wall finally moved" stands as
+   published. If it falls back toward the rung-1 and rung-2 floor, then the
+   wall did not move and the earlier draft overstated a three-seed artifact
+   -- which is the correction this extension exists to catch.

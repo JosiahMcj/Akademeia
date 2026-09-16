@@ -164,6 +164,19 @@ def fig_wall():
     for x, r in zip(xs, rows):
         ax.plot([x - 0.08, x + 0.08], [r["margin"]] * 2, color=NEUTRAL,
                 linewidth=1.6, linestyle=(0, (3, 2)))
+    # the pooled re-measurement, plotted beside the registered series
+    sp = [r for r in jrows(kind="study", study="S2-pooled")]
+    if sp:
+        r0 = sp[-1]
+        i = [x["rung"] for x in rows].index(r0["rung"])
+        m, se = r0["unseen_product_mean"], r0["unseen_product_sem"]
+        ax.errorbar([i], [m], yerr=[se], fmt="o", ms=6, color=NEUTRAL,
+                    ecolor=NEUTRAL, elinewidth=1.4, capsize=3, zorder=5,
+                    markeredgecolor=SURFACE, markeredgewidth=1.2)
+        ax.annotate(f"re-measured, {r0['n_runs']} runs\n{m:.2f} \u00b1 {se:.2f}",
+                    (i, m), color=NEUTRAL, fontsize=7.8, ha="right",
+                    va="center", xytext=(-14, -18),
+                    textcoords="offset points")
     ax.annotate("transfer margin the wall\nwould need to clear",
                 (xs[-1], rows[-1]["margin"]), color=NEUTRAL, fontsize=8,
                 ha="right", va="top", xytext=(-6, -6),
@@ -174,10 +187,13 @@ def fig_wall():
     ax.set_xticklabels([f"rung {r}" for r in rungs], fontsize=9, color=INK)
     ax.set_ylabel("score on the frozen physics bench", color=INK2, fontsize=10)
     last = rows[-1]
+    headline = (f"{sp[-1]['unseen_product_mean']:.2f} at "
+                f"{sp[-1]['n_runs']} runs" if sp
+                else f"{last['s2_unseen_product_mean']:.2f}")
     ax.set_title("Study S2: composition transfer is the last thing to move\n"
-                 f"at rung {last['rung']} unseen transfer finally leaves the "
-                 f"floor ({last['s2_unseen_product_mean']:.2f}),\nstill far "
-                 f"under the {last['margin']:.2f} margin it must clear",
+                 f"at rung {last['rung']} unseen transfer leaves the floor "
+                 f"({headline}),\nstill far under the {last['margin']:.2f} "
+                 f"margin it must clear",
                  color=INK, fontsize=10.5, loc="left")
     fig.tight_layout()
     fig.savefig(OUT / "v3-wall.png", facecolor=SURFACE)

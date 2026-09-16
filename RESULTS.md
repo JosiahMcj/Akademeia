@@ -93,10 +93,20 @@ variety pool, scored against the frozen bench:
 In-distribution execution of chained multiplication is essentially solved
 by rung 3, and unrelated unseen templates sit at 0.86-0.96 throughout. The
 transfer number is the interesting one: flat at the floor for two rungs,
-then 4x at rung 3 -- off the floor for the first time, and still nowhere
-near the margin it would have to clear. "The wall persists" survives as the
-verdict; "the wall is absolute" would have been wrong, and one more rung is
-the experiment that would settle it.
+then clearly off it at rung 3 -- and still nowhere near the margin it would
+have to clear.
+
+Because that was the one surprising positive number in the study, I measured
+it again with three more seeds per arm before publishing it. **It shrank.**
+At twelve runs the rung-3 transfer estimate is 0.198 +- 0.035, against the
+0.270 that three seeds reported -- about three quarters of it. The movement
+is still real: it sits 0.143 above the rung-1 and rung-2 floor, about four
+times the standard error, and the twelve runs range from 0.00 to 0.33 with
+two of them at exactly zero. So the wall moved at rung 3, by less than the
+first look suggested, and nowhere near enough to clear its margin. "The wall
+persists" survives as the verdict; "the wall is absolute" would have been
+wrong; and "the wall broke" would have been an overstatement I would have
+published without the extra seeds.
 
 ## Q3: the lottery does not narrow
 
@@ -167,6 +177,32 @@ rung-2 arm spanned 0.217 to 0.617 across its three original seeds -- so this
 task behaves like the lottery Study S1 measures on the vm niche. Twelve runs
 per rung is enough to place the means; it is not enough to make any claim
 about single-run behaviour, and none is made.
+
+## A note on three seeds
+
+Three numbers in this study stood out enough that I went back and measured
+them again with double the seeds, each time registered in advance and each
+time leaving the original verdict untouched. All three shrank:
+
+| quantity | at 3 seeds | at 6 runs per arm |
+|---|---|---|
+| Q4 rung 1 to rung 2 step | 0.086 | 0.053 |
+| Q1 rung-3 rank gap | 0.022 | 0.008 |
+| Q2 rung-3 transfer | 0.270 | 0.198 |
+
+That is not bad luck, and it is not evidence that the machine is broken. It
+is what selection does: I chose to re-measure the three estimates that
+looked most notable, and standing out is exactly the property a small-sample
+estimate acquires by being lucky. Every one of them regressed toward
+something duller when asked again.
+
+The practical consequence for a reader: any three-seed number in this study
+that has NOT been extended should be read as an upper bound on its own
+effect, not as a point estimate. The ones that have been extended are
+labelled where they appear. The results that do not depend on a small-sample
+mean at all -- the item-level sign tests, which run on 22 to 25 discordant
+items, and the exact zeros, which are counts rather than estimates -- are
+untouched by this concern, and they carry the study's firmest claims.
 
 ## What this does not cover
 
