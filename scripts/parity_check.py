@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from akademeia.curriculum import validate
 from akademeia.journal import Journal
 from akademeia.tiers import TIER1
-from run_arm import run_curriculum
+from run_arm import precision, HOST, NODE, run_curriculum
 from ladder import direct50
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -44,6 +44,7 @@ def main():
     mean_tb = sum(arm["basics"]) / len(arm["basics"])
     mean_mb = sum(ref["basics_A"]) / len(ref["basics_A"])
     row = {"kind": "parity", "device": args.device,
+           "precision": precision(), "host": HOST, "node": NODE,
            "torch_final": arm["final"], "mlx_final": ref["final_A"],
            "torch_mean": round(mean_t, 4), "mlx_mean": round(mean_m, 4),
            "diff": round(diff, 4), "band": band, "verdict": verdict,

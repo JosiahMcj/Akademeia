@@ -8,10 +8,10 @@ The DEVICE is journaled per run and excluded from the substrate hash; a
 resume with matching hashes but a different device is journaled loudly and
 re-measured, because cross-device comparisons are VOID unless the parity
 gate covered that pair (PROTOCOL port gates)."""
-import argparse, json, platform, sys, time
+import argparse, json, os, platform, sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from akademeia.trainer import train_run
+from akademeia.trainer import train_run, tf32_enabled
 from akademeia.evalrunner import eval_checkpoint
 from akademeia.tokenizer import CharTokenizer
 from akademeia.data.pool import load_pool
@@ -23,24 +23,59 @@ from akademeia.tiers import RUNGS
 
 ROOT = Path(__file__).resolve().parents[1]
 SEEDS = (11, 22, 33)
-# Two hosts can share a device STRING ("cpu" on one machine and on the
-# Studio's M3 are different instruments); a copied runs/ tree must never be
+# Two hosts can share a device STRING ("cpu" on one machine and on
+# box B are different instruments); a copied runs/ tree must never be
 # adopted across hosts (2026-08-20 amendment). Short hostname only: macOS
 # flips the domain suffix with the network, and a suffix flip is not an
 # instrument change.
-HOST = platform.node().split(".")[0]
+def _instrument() -> str:
+    """The instrument key used for resume identity.
+
+    Off a scheduler this is the short hostname, unchanged: two dev boxes that
+    both say "cpu" are different instruments. Under a scheduler, a homogeneous
+    node class may be declared ONE instrument via AK_INSTRUMENT -- but only on
+    evidence. The 2026-09-21 amendment registers that key for the a30 class
+    after scripts/bitwise_check.py showed four (node, gpu) targets producing
+    a BITWISE identical loss curve from the same seed. The actual node is
+    still recorded on every run and arm, so provenance is never lost; only
+    the resume key is widened."""
+    override = os.environ.get("AK_INSTRUMENT")
+    if override and os.environ.get("SLURM_JOB_ID"):
+        return override
+    return platform.node().split(".")[0]
+
+HOST = _instrument()
+NODE = platform.node().split(".")[0]
+
+def precision() -> str:
+    """The instrument's precision policy, recorded on every arm and stamp.
+    A TF32 run and a strict-fp32 run are different instruments in exactly the
+    way two hosts are: the numbers differ, so neither may adopt the other's
+    cached curves."""
+    return "tf32" if tf32_enabled() else "fp32"
+
+def _stamp_matches(prior: dict, want: dict) -> bool:
+    """Compare stamps, treating a MISSING precision key as fp32 so that
+    caches written before the policy was made explicit still match a strict
+    run -- they were measured with matmul TF32 off, which is what fp32 means
+    here. A tf32 stamp can never match an absent one."""
+    if prior is None:
+        return False
+    prior = dict(prior)
+    prior.setdefault("precision", "fp32")
+    return prior == want
 
 def niche_score(ev):
     return ev["scores"]["niche_unseen"]
 
 def load_seed_curve(path: Path, stamp: dict):
     """Stamp-gated per-seed curve cache read: the curve is adopted ONLY on an
-    exact stamp match (hashes+device+host+...), else None -- a cache keyed too
-    loosely adopts the wrong record silently."""
+    exact stamp match (hashes+device+host+precision+...), else None -- a cache
+    keyed too loosely adopts the wrong record silently."""
     if not path.exists():
         return None
     prior = json.loads(path.read_text())
-    if prior.get("stamp") == json.loads(json.dumps(stamp)):
+    if _stamp_matches(prior.get("stamp"), json.loads(json.dumps(stamp))):
         return [(t, ev) for t, ev in prior["curve"]]
     return None
 
@@ -76,7 +111,8 @@ def assemble_arm(curves: dict, T: float, hashes: dict, device: str) -> dict:
 def run_curriculum(cfg, curriculum, niche: str, T: float = 2.0, seeds=SEEDS,
                    tag="", stream_salt: int = 0, init_from=None,
                    phase: str = "", pool_file: str = "pool.jsonl",
-                   pool_key: str = "pool_hash", device: str = "cpu") -> dict:
+                   pool_key: str = "pool_hash", device: str = "cpu",
+                   assemble: bool = True) -> dict:
     """init_from: optional {seed: checkpoint_path} warm-start map (branch arms).
     pool_file/pool_key: variant pools (Study S2) -- eval stays on the frozen
     per-niche bench regardless of which pool trained the arm."""
@@ -97,7 +133,8 @@ def run_curriculum(cfg, curriculum, niche: str, T: float = 2.0, seeds=SEEDS,
         # different instrument until the parity gate says otherwise).
         prior = json.loads(arm_path.read_text())
         if prior.get("hashes") == hashes and prior.get("device") == device \
-                and prior.get("host") == HOST:
+                and prior.get("host") == HOST \
+                and prior.get("precision", "fp32") == precision():
             journal.append({"kind": "resume", "tag": tag or curriculum.name,
                             "why": "arm exists with matching hashes+device+host"})
             print(f"[resume] reusing {arm_path.name} (hashes+device+host match)")
@@ -106,11 +143,16 @@ def run_curriculum(cfg, curriculum, niche: str, T: float = 2.0, seeds=SEEDS,
                         "why": "hash, device, or host mismatch, re-measuring",
                         "old": {"hashes": prior.get("hashes"),
                                 "device": prior.get("device"),
-                                "host": prior.get("host")},
+                                "host": prior.get("host"),
+                                "precision": prior.get("precision", "fp32")},
                         "new": {"hashes": hashes, "device": device,
-                                "host": HOST}})
+                                "host": HOST, "precision": precision()}})
     waited = wait_for_load()
-    if waited > 0:
+    if waited >= 1.0:
+        # only a MATERIAL wait is evidence. wait_for_load returns its own
+        # elapsed time, which is a fraction of a second when the guard passes
+        # immediately -- journalling that produced 19 rows reading
+        # "waited 0 seconds", which reads as contention that never happened.
         journal.append({"kind": "waited", "tag": tag, "seconds": int(waited)})
     curves = {}
     with device_lock(device):
@@ -119,6 +161,7 @@ def run_curriculum(cfg, curriculum, niche: str, T: float = 2.0, seeds=SEEDS,
             # most ONE run, not the whole arm (SIGTERMs from the shared box
             # measured 2026-08-14). Reuse is stamp-gated like every resume.
             seed_stamp = {"hashes": hashes, "device": device, "host": HOST,
+                          "precision": precision(),
                           "salt": stream_salt, "seed": seed,
                           "warm": bool((init_from or {}).get(seed))}
             curve_path = ROOT / "runs" / f"curve-{tag or curriculum.name}-s{seed}.json"
@@ -146,13 +189,23 @@ def run_curriculum(cfg, curriculum, niche: str, T: float = 2.0, seeds=SEEDS,
                             "curriculum": curriculum.name, "seed": seed,
                             "tag": tag, "salt": stream_salt, "device": device,
                             "warm_start": bool((init_from or {}).get(seed)),
+                            "precision": precision(), "node": NODE,
                             "wall_s": round(time.monotonic() - t0, 1),
                             "final": niche_score(curve[-1][1]),
                             "basics": curve[-1][1]["scores"]["basics"],
                             "losses_first_last": [res.losses[0], res.losses[-1]],
                             "hashes": hashes})
+    if not assemble:
+        # fan-out task: the seed's curve is cached and that is the whole job.
+        # Assembly belongs to the call that holds every seed, so a partial
+        # arm file can never be written and later mistaken for a complete one.
+        journal.append({"kind": "partial", "tag": tag, "seeds": list(seeds),
+                        "why": "fan-out task; curve cached, arm not assembled"})
+        return {}
     arm = assemble_arm(curves, T, hashes, device)
     arm["host"] = HOST
+    arm["node"] = NODE          # provenance kept even when the key is a class
+    arm["precision"] = precision()
     arm_path.write_text(json.dumps(arm, default=str, indent=1))
     return arm
 

@@ -22,32 +22,50 @@ from ladder import direct50
 ROOT = Path(__file__).resolve().parents[1]
 NICHE = "vm"
 SEEDS6 = (11, 22, 33, 44, 55, 66)
+EXT_SEEDS = (77, 88, 99, 110, 121, 132)   # 2026-09-21 power amendment
 ALPHA = 0.05
 
-def cmd_run(rung: int, device: str):
+def seeds_for(extended: bool):
+    """The registered n=6 set, or the doubled set. Unlike a mean, a VARIANCE
+    estimate genuinely gains from more pairs: this study reported FLAT three
+    times while declaring itself underpowered at n=6 by its own rule, and
+    doubling the pairs is the remedy it prescribed for itself."""
+    return SEEDS6 + EXT_SEEDS if extended else SEEDS6
+
+def cmd_run(rung: int, device: str, extended: bool = False, only_seed=None):
     cfg = RUNGS[rung]
     B = cfg.total_tokens
     c = direct50(NICHE, B); validate(c, B)
-    run_curriculum(cfg, c, NICHE, seeds=SEEDS6, tag=f"s1-r{rung}-vm-A",
-                   stream_salt=0, phase="S1", device=device)
-    run_curriculum(cfg, c, NICHE, seeds=SEEDS6, tag=f"s1-r{rung}-vm-Aprime",
-                   stream_salt=1, phase="S1", device=device)
+    seeds = (only_seed,) if only_seed else seeds_for(extended)
+    suffix = "-ext" if extended and not only_seed else ""
+    for salt, nm in ((0, "A"), (1, "Aprime")):
+        run_curriculum(cfg, c, NICHE, seeds=seeds,
+                       tag=f"s1-r{rung}-vm-{nm}{suffix}",
+                       stream_salt=salt, phase="S1", device=device,
+                       assemble=(only_seed is None))
 
-def rung_stats(rung: int) -> dict | None:
-    pa = ROOT / "runs" / f"arm-s1-r{rung}-vm-A.json"
-    pp = ROOT / "runs" / f"arm-s1-r{rung}-vm-Aprime.json"
+def _arms(rung: int, extended: bool):
+    """The n=6 arms, or the n=12 extension arms. Separate tags by design: the
+    registered n=6 verdict must stay reproducible from its own files after
+    the extension exists (2026-09-21 amendment)."""
+    sfx = "-ext" if extended else ""
+    return (ROOT / "runs" / f"arm-s1-r{rung}-vm-A{sfx}.json",
+            ROOT / "runs" / f"arm-s1-r{rung}-vm-Aprime{sfx}.json")
+
+def rung_stats(rung: int, extended: bool = False) -> dict | None:
+    pa, pp = _arms(rung, extended)
     if not (pa.exists() and pp.exists()):
         return None
     a, ap = json.loads(pa.read_text()), json.loads(pp.read_text())
     out = seed_outcomes(a, ap)
-    return {"outcomes": [round(x, 4) for x in out],
+    return {"outcomes": [round(x, 4) for x in out], "n_pairs": len(out),
             "mean": round(sum(out) / len(out), 4),
             "spread": round(spread(out), 4),
             "band": round(realization_band(a, ap), 4)}
 
-def cmd_verdict():
+def cmd_verdict(extended: bool = False):
     journal = Journal(ROOT / "runs" / "journal.jsonl")
-    measured = {r: rung_stats(r) for r in sorted(RUNGS)}
+    measured = {r: rung_stats(r, extended) for r in sorted(RUNGS)}
     measured = {r: s for r, s in measured.items() if s}
     if len(measured) < 2:
         print(f"[S1] only {len(measured)} rung(s) measured; nothing to compare")
@@ -56,10 +74,9 @@ def cmd_verdict():
     rungs = sorted(measured)
     for lo, hi in zip(rungs, rungs[1:]):
         # recompute outcomes at full precision for the exact test
-        a = json.loads((ROOT / "runs" / f"arm-s1-r{lo}-vm-A.json").read_text())
-        ap = json.loads((ROOT / "runs" / f"arm-s1-r{lo}-vm-Aprime.json").read_text())
-        b = json.loads((ROOT / "runs" / f"arm-s1-r{hi}-vm-A.json").read_text())
-        bp = json.loads((ROOT / "runs" / f"arm-s1-r{hi}-vm-Aprime.json").read_text())
+        pa, pp = _arms(lo, extended); pb, pbp = _arms(hi, extended)
+        a, ap = json.loads(pa.read_text()), json.loads(pp.read_text())
+        b, bp = json.loads(pb.read_text()), json.loads(pbp.read_text())
         x, y = seed_outcomes(a, ap), seed_outcomes(b, bp)
         stat, p = bf_exact_perm(x, y)
         if p < ALPHA:
@@ -72,7 +89,9 @@ def cmd_verdict():
                       "spread_hi": round(spread(y), 4)})
         print(f"[S1] r{lo}->r{hi}: spread {spread(x):.4f} -> {spread(y):.4f}, "
               f"BF stat {stat:.4f}, exact p={p:.5f} -> {label}")
-    row = {"kind": "study", "study": "S1-Q3", "niche": NICHE,
+    row = {"kind": "study", "study": "S1-Q3-ext" if extended else "S1-Q3",
+           "n_pairs": (len(SEEDS6 + EXT_SEEDS) if extended else len(SEEDS6)),
+           "niche": NICHE,
            "per_rung": measured, "steps": steps,
            "registered_rule": "2026-08-11 amendment: pair-mean outcomes, "
                               "sample-sd spread, exact Brown-Forsythe "
@@ -81,6 +100,8 @@ def cmd_verdict():
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--extended", action="store_true")
+    ap.add_argument("--only-seed", type=int, default=None)
     ap.add_argument("stage", choices=["run", "verdict"])
     ap.add_argument("--rung", type=int, choices=sorted(RUNGS))
     ap.add_argument("--device", default="cpu")
@@ -88,9 +109,10 @@ def main():
     if args.stage == "run":
         if args.rung is None:
             print("run needs --rung"); sys.exit(2)
-        cmd_run(args.rung, args.device)
+        cmd_run(args.rung, args.device, extended=args.extended,
+                only_seed=args.only_seed)
     else:
-        cmd_verdict()
+        cmd_verdict(extended=args.extended)
 
 if __name__ == "__main__":
     main()

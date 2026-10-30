@@ -163,7 +163,7 @@ gate; no measured quantity or threshold changes.
 Box A (its accelerator under cuda, its CPU under cpu) was factory reset on
 2026-08-14. Its full runs/ tree -- journal, arm files, per-seed curve
 caches, checkpoints -- is preserved as the instrument record at
-spark-rescue-2026-08-14/ and remains the evidence for every verdict
+box-A-rescue-2026-08-14/ and remains the evidence for every verdict
 journaled there. No number in it changes.
 
 The campaign resumes on box B (28 cores, 96GB), device string "cpu". Registered consequences:
@@ -552,3 +552,246 @@ instrument, everything else identical. Registered consequences:
    published. If it falls back toward the rung-1 and rung-2 floor, then the
    wall did not move and the earlier draft overstated a three-seed artifact
    -- which is the correction this extension exists to catch.
+
+## Amendment (2026-09-21): a fifth substrate, and a node-class instrument key
+
+The campaign gains access to a SLURM cluster whose gpu partition holds eight
+identical nodes, each with four accelerators of a single model (accelerator C, 24GB). Rung 4 was never
+run because it projects to many days on a single shared box; here the runs
+are independent and can fan out across GPUs, which is what makes the rung
+reachable at all.
+
+**The instrument question, settled by measurement rather than by assumption.**
+The registered resume law treats two hosts as different instruments even when
+the device string matches. Applied literally on a cluster that would fragment
+a campaign across interchangeable nodes; applied loosely it would silently
+pool genuinely different machines. Neither is acceptable on an assumption, so
+it was tested. scripts/bitwise_check.py trains the same seed under the same
+config and compares the loss curve for EXACT equality -- not the parity band,
+which asks whether two instruments agree within a tolerance and is far too
+coarse to decide whether they are the same one. Four targets spanning three
+nodes and separate GPUs (node-2 gpu1, node-2 gpu3, node-3 gpu0, node-4 gpu0) produced
+an identical fingerprint, 1a1f08ee30b0bd85.
+
+Registered consequence: under a scheduler ONLY, and only via an explicit
+AK_INSTRUMENT declaration, a homogeneous node class may serve as the resume
+key -- here "box-C". The actual node is still recorded on every run row
+and every arm, so provenance is never lost; what widens is the key, not the
+record. Off a scheduler the hostname rule is unchanged, and that is
+test-pinned. This is a LOOSENING of a registered law and is therefore carried
+by the evidence above rather than by the homogeneity being obvious.
+
+**Precision, declared as two candidate instruments before either is run.**
+TF32 was never set in this codebase, so it inherited the platform default --
+the unset-knob failure this project has already recorded once. AK_TF32 now
+pins it explicitly, records it on every run row and arm, and joins the resume
+identity so neither precision can adopt the other's cached curves. On sm_80
+the fp32 and TF32 paths differ by roughly eight times in throughput, so both
+are registered here, in advance, as separate candidate instruments, each
+required to pass the full gate ladder independently exactly as cpu and mps
+did. Whichever passes is legal to use. Declared in advance this is instrument
+qualification; declared after a parity failure it would be gate-tuning, which
+is why it is written down now.
+
+**Cluster hygiene, registered because it changes how runs behave.** The
+box-discipline guards were written for a single machine and are wrong on a
+cluster in two ways, both fixed and test-pinned: the flock lived under the
+home directory, which is NFS-mounted on every node and would make it either a
+cluster-wide global lock silently serialising a parallel fan-out or a no-op;
+and the whole-node load guard would defer indefinitely on a 64-core node
+shared with other users' jobs that cannot touch this allocation's cores. The
+eval sandbox is directed to per-allocation scratch and removed on exit. No
+campaign data is stored on the compute nodes, and the ledger is mirrored off
+the cluster continuously.
+
+## Amendment (2026-09-21): S1/Q3 power extension, registered before the runs
+
+Q3 has now reported FLAT at every measured step (r1->r2 p=0.712, r2->r3
+p=0.390) while stating in its own results that it is underpowered at n=6 by
+its registered rule. The rung-3 spread was nominally four times smaller than
+rung 1's and still did not clear alpha. Doubling the pairs is the remedy this
+study prescribed for itself, and on the cluster it costs a few GPU-hours.
+
+Registered here, before the runs: six additional seeds (77, 88, 99, 110, 121,
+132) at every measured rung, taking the design from n=6 to n=12 same-seed
+A/A' pairs. Registered consequences:
+
+1. The original n=6 verdicts stand exactly as journaled. They are not
+   recomputed, withdrawn, or relabelled; the extension is reported alongside
+   them with its own n stated, and any table carrying both says which is
+   which.
+2. The registered RULE is unchanged -- pair-mean outcomes, sample-sd spread,
+   exact Brown-Forsythe permutation, alpha 0.05, direction-labelled. Only the
+   number of pairs changes. Nothing about the test is retuned, and alpha
+   in particular is untouched.
+3. Both outcomes are written down now. If the steps remain FLAT at n=12, the
+   scale-invariance reading is materially strengthened: it would then have
+   survived a doubling of power rather than merely failing to reach
+   significance once. If a step NARROWS at n=12, the honest statement is that
+   the earlier FLAT was an underpowered null and the lottery does narrow --
+   which is a real result the original design was too small to see, and which
+   this amendment exists to find.
+4. Unlike the three mean-estimate extensions in this campaign, a variance
+   estimate genuinely gains from more pairs rather than merely regressing
+   toward a duller value; the winner's-curse caution recorded in the results
+   applies to selected MEANS, not to the power of this test.
+
+## Amendment (2026-09-25): D2, the length-wall mechanism diagnostic
+
+Q4's firmest result is an exact zero: unseen chains one factor longer than
+training score 0.000 in 36 of 36 runs, across a 12x parameter range. The
+study establishes THAT this fails and says nothing about HOW, because
+eval_checkpoint grades exact-match and discards the decoded string.
+
+The scratchpad format makes the failure observable in a way the plain format
+cannot: a k-variable chain requires exactly k-1 partial products, and
+training only ever showed chains needing two. What the model emits therefore
+separates mechanisms that the pass/fail bit cannot.
+
+**The taxonomy, fixed here before any trace is generated or inspected.** For
+each length-4 bench item (gold trace = 3 partials), the emitted string is
+classified as exactly one of:
+
+- **CORRECT** -- full-trace exact match.
+- **SHORT_PREFIX_CORRECT** -- fewer partials than required, and every partial
+  emitted is correct: a correct prefix of the gold trace. The fold is right;
+  the stopping rule is wrong.
+- **SHORT_PREFIX_WRONG** -- fewer partials than required, and at least one
+  emitted partial is wrong.
+- **RIGHT_LENGTH_WRONG_VALUE** -- exactly k-1 partials, at least one wrong.
+- **LONG** -- more partials than required.
+- **MALFORMED** -- does not parse as a ';'-separated run of integers.
+
+**What each outcome would mean, declared now so it cannot be fitted later.**
+
+- Predominantly SHORT_PREFIX_CORRECT: the model executes the fold correctly
+  and stops after the number of steps it was trained on. The wall is LEARNED
+  OUTPUT LENGTH, not compositional depth. This is the outcome that would
+  reframe the result, and it carries a direct follow-up test (below).
+- Predominantly RIGHT_LENGTH_WRONG_VALUE: the model knows how many steps the
+  input demands and cannot execute them. That is a genuine depth limit and
+  the original reading of Q4 stands as written.
+- Predominantly MALFORMED or LONG: the failure is about surface form, and
+  both the depth and length readings are unsupported.
+- A split with no clear majority: the mechanism is not identified by this
+  design, and that is the finding. No mechanism will be claimed from a
+  plurality under 60%.
+
+**Scope.** This is DESCRIPTIVE and gates nothing. No registered verdict,
+threshold or score is recomputed, and Q4's 0.000 stands exactly as
+journaled regardless of what the traces show -- classification explains a
+failure, it does not re-adjudicate it.
+
+**Pre-declared follow-up, contingent and not yet authorised.** If
+SHORT_PREFIX_CORRECT predominates, the intervention test is: train on chains
+of length 2, 3 AND 4 while holding out one length-4 COMBINATION, then score
+that held-out combination. If it is then solved, the wall was length
+imitation rather than composition, and the same mechanism becomes a
+candidate explanation for Study S2's unseen-product wall, whose items are
+also longer than those trained. That study would be registered separately
+before it runs.
+
+**Grader discipline.** The classifier is written before any trace exists and
+is required to pass a known-positive test in both directions -- a synthetic
+example of every class, accepted as that class and rejected as the others --
+before it is pointed at real output.
+
+## D2 result (2026-09-25/26) and D3 registration (2026-10-29, before any D3 run)
+
+**D2 outcome, both rungs.** One step deeper than training, the model emitted
+the required three partials in 0 of 60 items at rung 1 and 0 of 60 at rung 3;
+all 120 were SHORT (rung 1: 6 prefix-correct, 54 prefix-wrong; rung 3: 9 and
+51). The registered majority class is SHORT_PREFIX_WRONG at 90% and 85%. My
+interpretation table assigned no meaning to that class, which is a gap in the
+D2 registration and is left unfilled rather than retrofitted. What stands
+without interpretation is the count: across a 12x parameter range the model
+never once produced a third partial.
+
+**D3: is the wall length exposure or composition?** The D2 follow-up was made
+contingent on SHORT_PREFIX_CORRECT predominating; it did not. It is run anyway
+because the structural count (never a third partial) is the evidence that
+motivated it, and that is said here rather than glossed.
+
+Design: a variant pool whose training chains include length 4 -- (m,n,c,d)
+and (a,b,m,n) -- alongside the original length-2/3 templates. Held out:
+(a,b,c,d), the exact template that scored 0.000 in 36 of 36 Q4 runs, now a
+novel COMBINATION at a TRAINED length. Diagnostic: (a,b,c,d,m), one step
+deeper than anything trained, reported never gated, difficulty-1 operands so
+every legal trace fits the 24-character cap. Same curriculum shape, seeds
+11/22/33, A/A' salts, rungs 1 and 3, FULL-TRACE grading.
+
+Pre-declared reading, on the held-out (a,b,c,d) mean over six runs per rung:
+- at or above 0.20 (the discrimination-band floor): the Q4 zero was length
+  EXPOSURE -- seeing length-4 chains at all unlocks a novel length-4
+  combination -- and the depth wall is not a composition limit.
+- below 0.05: novel combination fails even at a trained length; the wall is
+  compositional and the length reading is unsupported.
+- between: not identified by this design.
+Prediction for the length-5 diagnostic, made now: 0.000, i.e. the boundary
+moves with exposure. Descriptive; no registered verdict is recomputed.
+
+## D3 result (2026-10-30) and D3-trace, registered before the traces are generated
+
+D3 by its registered rule: rung 1 held-out (a,b,c,d) 0.267 +- 0.069 over six
+runs -> EXPOSURE; rung 3 0.025 +- 0.014 -> COMPOSITION. Length-5 diagnostic
+0.000 in 12 of 12 runs, as predicted. The two rungs give OPPOSITE readings, and
+the larger model scores lower. Stated plainly: the rung-1 mean clears 0.20
+while its own spread runs from 0.017 to 0.467, so its EXPOSURE label rests on
+a lottery-like six-run mean.
+
+D3-trace: the twelve final D3 checkpoints are decoded on the D3 bench and
+classified with the D2 taxonomy, unchanged. The question is whether the
+rung-3 failures are a LENGTH failure or a COMBINATION failure. Read for (a,b,c,d), declared now:
+- RIGHT_LENGTH_WRONG_VALUE predominant (>=60%): exposure taught the length
+  (three partials are attempted), and what fails is the novel combination.
+  The rung-3 COMPOSITION label is then supported mechanistically.
+- SHORT_* predominant: even with length-4 training the model does not attempt
+  the third step on an unseen combination. The length reading survives, and
+  exposure did not transfer to it.
+- Neither >=60%: not identified.
+Descriptive; no D3 or earlier verdict is recomputed.
+
+## D3-trace result (2026-10-30) and D3-ops, registered before decoding
+
+D3-trace on (a,b,c,d): rung 1 attempts three partials in 222/360 outputs (96
+correct); rung 3 stops at two in 343/360 (SHORT_PREFIX_WRONG 72%). By the
+registered reading, rung 3 does not attempt the third step on an unseen
+combination despite training on length-4 chains; exposure transferred at rung
+1 and not at rung 3. Length-5 is short in 356/360 and 360/360.
+
+D3-ops: every rung-3 (a,b,c,d) output with exactly two partials is tallied by
+what step 2 equals: step1*c (running the trained a,b,c prefix), step1*d
+(first pair then last variable, skipping c), or other. Rung 1 is tallied as a
+control. Read, declared now: >=60% step1*c -> the model binds to the familiar
+3-variable prefix; >=60% step1*d -> a fixed "pair then last operand" program;
+neither -> not identified. Also tallied: step 1 == a*b. Descriptive.
+
+## D3-ops result (2026-10-30)
+
+Two-partial outputs on held-out (a,b,c,d). Rung 3 (343): step 1 == a*b in
+337 (98%); step 2 == step1*d (skipping c) 188 (55%), step1*c 66 (19%), other
+71, ambiguous because c == d 18. Rung 1 (138): step1*c 50 (36%), step1*d 14
+(10%), other 70. Neither rung clears the registered 60% rule: NOT IDENTIFIED
+at both. At rung 3 "first pair, then the last operand" is a clear plurality
+(58% with the ambiguous rows excluded) and is reported as a tendency, not a
+mechanism. The six-example anecdote that motivated D3-ops read 4/6 (67%); the
+full count is 55%.
+
+## Correction (2026-10-30): the Q3 spread change was an instrument change, not sample size
+
+Caught while drafting. The S1/Q3 extension wrote new "-ext" arms. Their tag
+did not match the original curve caches, so the assembly job measured the
+original seeds 11-66 again on accelerator C alongside the six new ones. The
+twelve-pair cells are therefore single-instrument and the FLAT verdict at
+n=12 stands. But the six-pair rows come from another machine, and the
+results draft that read rung 3's spread as "0.0164 at six pairs, 0.0432 at
+twelve" as a sample-size effect was wrong: the same six seeds give 0.0474 on
+accelerator C. The claim that this spread "regressed like the means," and the
+paragraph saying my registered reasoning about variance estimates had been
+wrong, are both withdrawn. The three mean-estimate extensions were each
+re-measured on their original instrument (checked arm by arm) and are
+unaffected.
+
+Also recorded: accelerator C has no direct pair gate with the earlier
+instruments. The rung 3 -> 4 rank comparison and D3's reference to Q4's zero
+cross that boundary and are flagged where they appear.

@@ -27,11 +27,28 @@ def _batches(tokens, ctx, bs, device):
         yield torch.tensor(tokens[off:off + step],
                            dtype=torch.long, device=device).view(bs, ctx + 1)
 
+def tf32_enabled() -> bool:
+    """Whether the TF32 tensor-core path is permitted. Set EXPLICITLY rather
+    than inherited: an unset sampling/precision knob silently adopts whatever
+    the platform defaults to, and on new hardware that default can flip a
+    gate from pass to fail while every line of the code is unchanged. AK_TF32
+    is recorded on every run row, so the instrument a number came from is
+    always readable off the ledger."""
+    return os.environ.get("AK_TF32", "0") == "1"
+
+def apply_precision_policy() -> dict:
+    """Pin the precision policy and return it for journalling."""
+    tf32 = tf32_enabled()
+    torch.backends.cuda.matmul.allow_tf32 = tf32
+    torch.backends.cudnn.allow_tf32 = tf32
+    return {"tf32": tf32}
+
 def train_run(cfg, curriculum, pool, tokenizer, seed: int, out_dir,
               stream_salt: int = 0, init_from=None,
               device: str = "cpu") -> RunResult:
     out_dir = Path(out_dir); out_dir.mkdir(parents=True, exist_ok=True)
     torch.use_deterministic_algorithms(True)
+    apply_precision_policy()
     torch.manual_seed(seed)
     model = TinyLM(cfg, tokenizer.vocab_size).to(device)
     if init_from is not None:

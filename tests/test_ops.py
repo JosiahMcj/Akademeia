@@ -57,7 +57,7 @@ def test_box_ok_blocks_on_low_memory(monkeypatch):
     ok, why = box_ok()
     assert not ok and "memory available" in why
 
-def test_box_ok_passes_at_spark_headroom(monkeypatch):
+def test_box_ok_passes_at_accelerator_box_headroom(monkeypatch):
     monkeypatch.setattr(ops, "mem_available_gb", lambda: 7.0)
     monkeypatch.setattr(ops, "load_ok", lambda *a, **k: True)
     monkeypatch.setattr(ops, "gpu_state", lambda: None)

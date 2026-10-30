@@ -6,11 +6,14 @@ panel, legend + selective labels. Reads run ledgers and journal study rows
 -> numbers are never retyped by hand. Read-only: never journals, never
 gates. Extends automatically as more rungs land in runs/.
 """
-import json
+import json, sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+
+from akademeia.journal import Journal
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "figures"
@@ -35,13 +38,33 @@ def arm(name):
     return json.loads((ROOT / "runs" / f"arm-{name}.json").read_text())
 
 def jrows(**match):
-    rows = [json.loads(l) for l in open(ROOT / "runs" / "journal.jsonl")]
+    rows = Journal(ROOT / "runs" / "journal.jsonl").read()   # shard-aware
     return [r for r in rows if all(r.get(k) == v for k, v in match.items())]
 
+def instrument_label(a: dict) -> str:
+    """Role labels, matching RESULTS.md, never raw device strings."""
+    host = (a.get("host") or "").lower()
+    dev = a.get("device")
+    if dev == "cuda" and "a30" in host:
+        return "accelerator C"
+    if dev == "cuda":
+        return "accelerator A"
+    if dev == "mps":
+        return "accelerator B"
+    return "processor B" if host else "processor A"
+
 def rungs_present():
+    """Only rungs with EVERY arm present. A rung whose baseline has landed but
+    whose arms are still training is half a measurement: plotting it would
+    draw a ranking from arms that do not exist yet, and it used to crash the
+    figure outright."""
     out = []
     r = 1
-    while (ROOT / "runs" / f"arm-ladder-r{r}-direct50-A.json").exists():
+    while True:
+        tags = [f"ladder-r{r}-direct50-A"] + [f"ladder-r{r}-{n}"
+                                              for n, _ in ARMS if n != "direct50"]
+        if not all((ROOT / "runs" / f"arm-{t}.json").exists() for t in tags):
+            break
         out.append(r); r += 1
     return out
 
@@ -74,9 +97,14 @@ def fig_ladder():
                     fontsize=9, ha="left", va="center", xytext=(9, 0),
                     textcoords="offset points")
     ax.set_xlim(-0.25, len(rungs) - 0.30)
+    allv = [sum(arm(f"ladder-r{r}-direct50-A" if n == "direct50"
+                    else f"ladder-r{r}-{n}")["final"]) / 3
+            for n, _ in ARMS for r in rungs]
+    lo, hi = min(allv), max(allv)
+    ax.set_ylim(lo - 0.22 * (hi - lo), hi + 0.04 * (hi - lo))   # room for the note
     ax.set_xticks(xs)
-    ax.set_xticklabels([f"rung {r}\n({arm(f'ladder-r{r}-direct50-A')['device']})"
-                        for r in rungs], fontsize=9, color=INK)
+    ax.set_xticklabels([f"rung {r}\n" + instrument_label(arm(f'ladder-r{r}-direct50-A')).replace(" ", "\n")
+                        for r in rungs], fontsize=8.5, color=INK)
     ax.set_title("physics: the ranking, rung by rung",
                  color=INK, fontsize=10, loc="left")
     ax.set_ylabel("unseen-formula score (mean of 3 seeds)", color=INK2,
@@ -87,11 +115,12 @@ def fig_ladder():
     if broke:
         b = broke[0]
         pair = b["rank_agreement_vs_prev"]["disagreements"][0]
-        gap = abs(b["finals"][pair[0]] - b["finals"][pair[1]])
-        i = rungs.index(b["rung"])
-        note = (f"ordinal measure flips at rung {b['rung']}: {pair[0]} vs "
-                f"{pair[1]}, gap {gap:.3f}\n"
-                f"-- the one pair no gate ever separated")
+        at = ", ".join(f"r{r['rung']}" for r in broke)
+        gaps = ", ".join(f"{abs(r['finals'][pair[0]] - r['finals'][pair[1]]):.3f}"
+                         for r in broke)
+        note = (f"ordinal measure flips at {at}, always {pair[0]} vs "
+                f"{pair[1]}\ngaps {gaps} -- the one pair no gate ever "
+                f"separated")
         rp = [r for r in jrows(kind="study", study="Q1-rank-pooled")
               if r["rung"] == b["rung"]]
         if rp:
@@ -99,10 +128,11 @@ def fig_ladder():
             note += (f"\nat {r0['n_per_arm']} runs/arm the gap is "
                      f"{abs(r0['difference']):.3f} +- "
                      f"{r0['difference_uncertainty']:.3f}")
-        ax.text(0.02, 0.04, note, transform=ax.transAxes, color=INK2,
-                fontsize=7.2, ha="left", va="bottom")
+        ax.text(0.02, 0.015, note, transform=ax.transAxes, color=INK2,
+                fontsize=7.0, ha="left", va="bottom")
     ax = axes[1]; style(ax)
-    s1 = jrows(kind="study", study="S1-Q3")
+    # prefer the doubled-power extension when it exists
+    s1 = jrows(kind="study", study="S1-Q3-ext") or jrows(kind="study", study="S1-Q3")
     if s1:
         per = s1[-1]["per_rung"]
         for i, r in enumerate(sorted(per, key=int)):
@@ -114,7 +144,7 @@ def fig_ladder():
                     zorder=4)
             ax.annotate(f"sd {per[r]['spread']:.3f}", (i, m), color=INK2,
                         fontsize=8, ha="center", va="bottom",
-                        xytext=(0, 26), textcoords="offset points")
+                        xytext=(0, 30), textcoords="offset points")
         steps = s1[-1]["steps"]
         note = "\n".join(f"{s['step']}: {s['label']} (p={s['p']:.2f})"
                           for s in steps)
@@ -129,7 +159,8 @@ def fig_ladder():
         ax.set_xticks(range(len(per)))
         ax.set_xticklabels([f"rung {r}" for r in sorted(per, key=int)],
                            fontsize=9, color=INK)
-        ax.set_ylabel("unseen-combination (6 pair means)",
+        npairs = s1[-1].get("n_pairs", 6)
+        ax.set_ylabel(f"unseen-combination ({npairs} pair means)",
                       color=INK2, fontsize=9)
     fig.suptitle("v3 ladder: what scale preserves (ranking) and what it "
                  "does not shrink (the lottery)", color=INK, fontsize=11,

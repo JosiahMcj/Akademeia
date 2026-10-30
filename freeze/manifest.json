@@ -16,5 +16,7 @@
  "bench_hash_scratchpad": "26d980e5f0193c4e",
  "pool_q4_seed": 20260904,
  "bench_q4_seed": 20260905,
- "q4_max_out": 24
+ "q4_max_out": 24,
+ "pool_d3_hash": "db0306d2b6ff4979",
+ "bench_hash_d3": "d38897b5f9c693da"
 }

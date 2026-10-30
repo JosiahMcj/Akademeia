@@ -11,7 +11,27 @@ Laws carried from v1/v2, all measured the hard way:
 """
 import contextlib, fcntl, os, platform, re, shutil, subprocess, time
 
-DEFAULT_LOCK = os.path.expanduser("~/.gpulock")
+def under_scheduler() -> bool:
+    """True inside a SLURM allocation. The scheduler owns arbitration there:
+    it decided which GPUs and cores are mine, so this module's same-box
+    guards must step aside rather than second-guess it."""
+    return bool(os.environ.get("SLURM_JOB_ID"))
+
+def _lock_dir() -> str:
+    """Lock files must NEVER live on a shared filesystem. On a cluster, home
+    is NFS-mounted on every node, so a lock under ~ is either a cluster-wide
+    global lock (silently collapsing a parallel fan-out into a queue that
+    merely looks like a slow cluster) or silently ineffective, depending on
+    whether the mount honours flock. Under a scheduler the lock is therefore
+    node-local and scoped to the allocation; elsewhere it stays in ~ , which
+    is local disk on the dev boxes and is the behaviour every existing run
+    was measured under."""
+    if under_scheduler():
+        base = os.environ.get("TMPDIR", "/tmp")
+        return os.path.join(base, f"akademeia-{os.environ['SLURM_JOB_ID']}")
+    return os.path.expanduser("~")
+
+DEFAULT_LOCK = os.path.join(_lock_dir(), ".gpulock")
 CUDA_CONTEXT_FLOOR_GB = 6.5     # with CUDA_MODULE_LOADING=LAZY. Measured: lazy
                                 # context+matmul OK at 7.4GB (eager fails there);
                                 # a full run's torch footprint is ~1.5GB, so a
@@ -22,7 +42,7 @@ CUDA_CONTEXT_FLOOR_GB = 6.5     # with CUDA_MODULE_LOADING=LAZY. Measured: lazy
                                 # shifts to the resident server and the decision
                                 # belongs to the operator, not this constant.
 
-CPU_LOCK = os.path.expanduser("~/.cpulock")
+CPU_LOCK = os.path.join(_lock_dir(), ".cpulock")
 
 def device_lock(device: str = "cuda", timeout: float = 6 * 3600):
     """Same-box serialization PER DEVICE CLASS: the cpu and cuda lanes use
@@ -34,6 +54,7 @@ def device_lock(device: str = "cuda", timeout: float = 6 * 3600):
 
 @contextlib.contextmanager
 def gpu_lock(path=DEFAULT_LOCK, timeout: float = 6 * 3600):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     f = open(path, "w")
     deadline = time.time() + timeout
     while True:
@@ -125,7 +146,15 @@ def gpu_state() -> dict | None:
 def load_ok(threshold: float = 16.0, probes: int = 2, gap: float = 10.0) -> bool:
     """Double-probe load guard (both probes must pass). 16 is the measured
     floor-plus-margin on the shared 10-core dev box; single-tenant chains may
-    pass a tighter value."""
+    pass a tighter value.
+
+    Under a scheduler this guard does not apply: load average reflects the
+    WHOLE node, including other users' jobs that cannot touch my cgroup's
+    cores or GPU, so a fixed threshold on a 64-core node defers forever on a
+    machine that is doing exactly what it should. The guards-go-blind lesson
+    in reverse -- a guard measuring something that is no longer the risk."""
+    if under_scheduler():
+        return True
     for i in range(probes):
         if os.getloadavg()[0] > threshold:
             return False
@@ -145,6 +174,9 @@ def box_ok(load_threshold: float = 16.0, min_mem_free_gb: float = 4.0,
     succeeds at ~8.2GB available and fails outright at ~6.9GB -- waiting
     below the floor beats crashing into it."""
     gpu = gpu_state()
+    if under_scheduler():
+        # the scheduler already reserved this memory and these GPUs for me
+        return True, "ok (scheduler-managed allocation)"
     floor = max(min_mem_free_gb, CUDA_CONTEXT_FLOOR_GB) if gpu is not None \
         else min_mem_free_gb
     free = mem_available_gb()

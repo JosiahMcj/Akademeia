@@ -7,9 +7,9 @@ magnitude of scale. Every threshold below was frozen from same-seed A/A'
 pairs before the arm it judges ever ran; every number is read out of the
 run ledgers in `runs/`, never retyped.
 
-Three rungs completed: 4L/256d (3.2M params, 30M tokens), 6L/384d (10.7M,
-45M tokens), 8L/640d (39.5M, 135M tokens). That is a 12x span in
-parameters and 4.5x in tokens.
+Four rungs completed: 4L/256d (3.2M params, 30M tokens), 6L/384d (10.7M,
+45M tokens), 8L/640d (39.5M, 135M tokens) and 12L/1024d (151.4M, 450M
+tokens). That is a 47x span in parameters and 15x in tokens.
 
 ## The instrument agrees with itself across four substrates
 
@@ -24,60 +24,74 @@ result counted. Golden parity, tier-1, band 0.1 around a reference mean of
 | torch, processor A | 0.5833 | -0.006 |
 | torch, processor B | 0.5778 | -0.011 |
 | torch, accelerator B | 0.5556 | -0.033 |
+| torch, accelerator C, strict fp32 | 0.5611 | -0.028 |
+| torch, accelerator C, TF32 | 0.5833 | -0.006 |
+
+Accelerator C is a cluster node class. I registered both of its precision
+settings as separate candidates before running either, and both passed; the
+rung-4 and length-wall runs used TF32. Rather than assume its nodes were
+interchangeable, I trained the same seed on four GPUs across three nodes: the
+loss curves were bitwise identical, so the class is one instrument.
 
 Determinism is gated per device (same seed trained twice, curves compared
 at 1e-6) and device pairs are gated before any comparison crosses them: the
-two pairs that a result ever crossed differed by 0.006 and 0.022. Parity failed on the
+two gated pairs differed by 0.006 and 0.022. Accelerator C has no direct pair
+gate with the earlier instruments. Two comparisons cross that boundary, and I
+flag both where they appear: the rung 3 -> rung 4 rank comparison in Q1, and
+the length-wall studies, whose zero baseline was measured on accelerator B
+and processor B. Parity failed on the
 first attempt at -0.18; the cause was three port-spec mismatches found by
 measuring the MLX substrate directly (embedding init scale, attention
 projection shape and init, and the optimizer's uncorrected update with
 pre-step decoupled decay), not by tuning toward the gate.
 
-## Q1: the separated ranking survives; the ordinal measure does not
+## Q1: the separated ranking survives; the ordinal measure never settles
 
 Two arms are judged against the mixed 50/50 baseline at each rung, with
-thresholds re-derived per rung.
+thresholds re-derived per rung. Four rungs were measured, spanning 3.2M to
+151.4M parameters -- a 47x range.
 
 | rung | branch vs direct50 | adaptive2 vs direct50 |
 |---|---|---|
 | 1 | 8W/18L, not promoted, retention -0.55 | 7W/3L, non-inferior |
 | 2 | 5W/19L, not promoted, retention -0.59 | 6W/3L, non-inferior |
-| 3 | 4W/21L, not promoted, retention -0.81, P(worse)=0.0005 | 9W/13L, non-inferior |
+| 3 | 4W/21L, not promoted, P(worse)=0.0005, retention -0.81 | 9W/13L, non-inferior |
+| 4 | 5W/11L, non-inferior, P(worse)=0.105, retention -0.83 | 8W/5L, non-inferior |
 
-**Every gate-level verdict replicated at all three rungs.** Core-then-branch
-loses at every scale, and its cost is not subtle: the branch arm's basics
-retention sits at 0.03-0.04 at every rung, against 0.58-0.85 for the
-baseline. Training a niche on top of a frozen basics core destroyed the
-basics, and three scale steps did not soften that.
+**The finding that does not move is the cost, not the score.** Core-then-branch
+retains 0.02 of the basics at rung 4 against the baseline's 0.85, and its
+retention delta is -0.55, -0.59, -0.81, -0.83 across the four rungs. Training
+a niche on top of a frozen basics core destroys the basics, at 3.2M parameters
+and still at 151M, and 47x of scale does not soften it at all. That is the
+clearest result in the study and it rests on a quantity no gate had to
+adjudicate.
 
-The ordinal measure tells a different story, and both belong in the record.
-Pairwise rank agreement was 1.0 from rung 1 to rung 2 and **0.667 from rung
-2 to rung 3**, with the top-1 arm changing from adaptive2 to direct50. By
-the registered rule that is the rung where stability breaks, and the
-pre-registered prediction that rankings scramble beyond tier 2 is nominally
-borne out.
+**Branch's niche disadvantage, by contrast, stopped being significant at rung
+4, and the honest reading is ambiguous.** Its win rate improved (5 of 16
+discordant items, against 4 of 25 at rung 3) but the number of discordant
+items fell from 25 to 16, so the test lost power at the same time the arm
+looked better. Whether the arm genuinely caught up or the instrument simply
+stopped being able to tell cannot be separated from these data, and no claim
+is made either way.
 
-But the single discordant pair is (adaptive2, direct50), separated at rung
-3 by 0.022 -- against that rung's own noise band of 0.15, a sign test of
-P=0.26, and a measured difference of 0.022 between the two instruments
-involved. It is the one pair that no gate separated at any rung. The two
-concordant pairs both involve branch, which sits last at every rung with
-power.
+**The ordinal rank measure flipped twice, both times on the same pair.** Rank
+agreement was 1.0 from rung 1 to 2, then 0.667 from 2 to 3, then 0.667 again
+from 3 to 4 -- and the single discordant pair was (adaptive2, direct50) every
+time. Their separation at rung 3 was 0.022 and at rung 4 is 0.017. That pair
+was measured directly with six runs per arm at rung 3: a difference of 0.008
+against an uncertainty of 0.034, a quarter of its own error bar, head-to-head
+3-3. (Rung 4 ran on accelerator C and rung 3 on accelerator B, with no direct
+pair gate between them, so the rung 3 -> 4 step also crosses instruments.) It is a coin flip, and across four rungs it has landed adaptive2, then
+adaptive2, then direct50, then adaptive2.
 
-**I then went back and measured that pair harder, because the whole caveat
-rested on three seeds per arm.** Three more seeds were added to each of
-direct50 and adaptive2 at rung 3, registered in advance, with the rung-3
-verdicts explicitly not recomputed. At six runs per arm the two arms sit at
-0.603 +- 0.016 and 0.594 +- 0.030: a difference of 0.008 against an
-uncertainty of 0.034, which is a quarter of its own error bar, and a
-head-to-head split of 3 to 3. The gap that produced the flip shrank to
-roughly a third of its three-seed size once the seeds doubled.
-
-So the honest reading is that a ranking with real separation in it survived
-an order of magnitude, while an ordinal statistic with no noise floor
-flipped a pair that was never distinguishable in the first place -- and that
-reading now rests on measurement rather than on my argument about it. A
-rank-agreement number is only as meaningful as the gaps underneath it.
+So the four-rung answer to the flagship question separates cleanly into two
+statements. A ranking with real separation in it -- branch against the field,
+on the quantity that actually differs -- survived 47x of scale intact. The
+ordinal statistic layered on top of it never settled, because it consumes only
+the SIGN of a difference and one of its three pairs has no real difference to
+take the sign of. The pre-registered prediction that rankings would scramble
+beyond tier 2 is technically borne out, and is an artifact of the measure
+rather than a fact about curricula.
 
 ## Q2: the composition wall is the last thing scale moves
 
@@ -110,20 +124,42 @@ published without the extra seeds.
 
 ## Q3: the lottery does not narrow
 
-Structural generalization on the vm niche, six same-seed pair means per
-rung, exact Brown-Forsythe permutation on the spread:
+Structural generalization on the vm niche, same-seed pair means per rung,
+exact Brown-Forsythe permutation on the spread:
 
-| step | spread | statistic | exact p | verdict |
-|---|---|---|---|---|
-| rung 1 -> 2 | 0.0665 -> 0.0636 | 0.0125 | 0.712 | flat |
-| rung 2 -> 3 | 0.0636 -> 0.0164 | 0.0306 | 0.390 | flat |
+| step | pairs | instrument | spread | exact p | verdict |
+|---|---|---|---|---|---|
+| rung 1 -> 2 | 6 | processor B | 0.0665 -> 0.0636 | 0.712 | flat |
+| rung 2 -> 3 | 6 | processor B, then accelerator B | 0.0636 -> 0.0164 | 0.390 | flat |
+| rung 1 -> 2 | 12 | accelerator C | 0.0557 -> 0.0962 | 0.283 | flat |
+| rung 2 -> 3 | 12 | accelerator C | 0.0962 -> 0.0432 | 0.097 | flat |
 
-Means rise steadily (0.168 -> 0.306 -> 0.414) while the registered variance
-question stays unanswered in the same direction v2 left it. The rung-3
-spread is nominally 4x smaller, which is suggestive and does not clear
-alpha at n=6; by its own registered rule this study is underpowered against
-a narrowing of that size, and saying so is the result rather than a
-footnote to it.
+The registered design used six pairs per rung and stated in its own results
+that it was underpowered at that size. So the pairs were doubled to twelve,
+registered in advance, with the test, the alpha and the original verdicts all
+left untouched. **FLAT survives at both steps.** That is a materially stronger
+claim than the first one: scale-invariance of this lottery has now survived a
+doubling of power rather than merely failing to reach significance once. The
+permutation test remains exact at twelve pairs (2,704,156 relabelings), so
+nothing about the method was relaxed to afford the larger design.
+
+The twelve-pair cells are single-instrument: all twelve seeds of every rung,
+including the original six, were trained on the same accelerator, because the
+extension's new tag meant the original seeds were measured again rather than
+reused. The six-pair rows came from a different machine. So the two halves of
+this table are not a "more seeds" comparison, and an earlier draft of this
+document wrongly read them as one: it said rung 3's spread "grew from 0.0164
+to 0.0432 once the seeds doubled." It did not. The same six seeds, measured
+again on the accelerator, already give a rung-3 spread of 0.0474. The change
+came from the instrument, not from the extra seeds. Seeds that passed the same
+parity gate still land at different per-seed values (0 of 6 identical at
+rung 3), which is what a mean-level gate permits and a spread estimate can
+feel.
+
+What the extension does establish is the verdict: on one instrument, with
+twelve pairs per rung, FLAT holds at both steps. Means rise with scale on that
+instrument (0.124 -> 0.287 -> 0.396): the lottery's centre moves up and its
+width does not shrink.
 
 ## Q4: writing the intermediates down is learnable, and buys nothing for length
 
@@ -178,6 +214,48 @@ task behaves like the lottery Study S1 measures on the vm niche. Twelve runs
 per rung is enough to place the means; it is not enough to make any claim
 about single-run behaviour, and none is made.
 
+## The length wall, taken apart (D2 and D3)
+
+Q4's firmest number was an exact zero: chains one factor longer than training
+scored 0.000 in 36 of 36 runs. Three follow-up studies, each registered before
+its data existed, asked what the model actually does there.
+
+**It never attempts the extra step (D2).** I decoded the model's output on those
+chains and classified every trace. One step deeper than training, the model
+wrote the required three partial products in 0 of 60 items at rung 1 and 0 of
+60 at rung 3: all 120 stopped at two. It is not failing at the third
+multiplication. It never writes one.
+
+All D2 and D3 runs used accelerator C, while Q4's zero came from accelerators
+and processors on another machine. D2's 0 of 120 is a count on its own
+instrument and needs no cross-machine comparison. D3's comparison is within
+itself, against a fixed threshold.
+
+**Training on longer chains helps the small model and not the large one (D3).**
+I added length-4 chains to training and tested (a,b,c,d), the exact template
+that had scored zero, now a new combination at a length the model had seen.
+
+| rung | held-out (a,b,c,d), 6 runs | attempts 3 partials | length 5 |
+|---|---|---|---|
+| 1 (3.2M) | 0.267 +- 0.069 | 222 of 360 | 0 of 6 runs |
+| 3 (39.5M) | 0.025 +- 0.014 | 17 of 360 | 0 of 6 runs |
+
+At rung 1 the model carried length-4 over to the new combination. At rung 3,
+trained on the same chains, it stopped at two steps in 343 of 360 outputs. The
+larger model learned length 4 for the chains it saw, not as a rule it could
+reuse. Both rungs held length 5 at exactly zero, as I predicted beforehand:
+the boundary sits wherever training stopped. Two cautions. The rung-1 score
+swings from 0.02 to 0.47 across its six runs, so its "exposure helped"
+reading rests on a noisy mean. And the gap runs the opposite way to what
+scale usually buys.
+
+**What the large model does instead is a tendency, not a mechanism (D3-ops).**
+In the rung-3 two-step outputs, step 1 is a*b 98% of the time, and step 2
+most often multiplies by d, the last number, skipping c: 55%, against 19% for
+c. That falls short of the 60% I registered for calling it a mechanism, so I
+report it as a plurality. Six hand-picked examples had suggested 4 of 6; the
+full count is lower, the same shrinkage the note on three seeds describes.
+
 ## A note on three seeds
 
 Three numbers in this study stood out enough that I went back and measured
@@ -191,26 +269,33 @@ time leaving the original verdict untouched. All three shrank:
 | Q2 rung-3 transfer | 0.270 | 0.198 |
 
 That is not bad luck, and it is not evidence that the machine is broken. It
-is what selection does: I chose to re-measure the three estimates that
-looked most notable, and standing out is exactly the property a small-sample
-estimate acquires by being lucky. Every one of them regressed toward
-something duller when asked again.
+is what selection does: I chose to re-measure the estimates that looked most
+notable, and standing out is exactly the property a small-sample estimate
+acquires by being lucky. Every one of them moved toward something duller when
+asked again.
+
+Q3's rung-3 spread is not a fourth example, though an earlier draft of this
+document counted it as one. Its change between the six-pair and twelve-pair
+tables comes from a change of instrument (see Q3), and all three examples
+above were re-measured on the instrument that produced the original.
 
 The practical consequence for a reader: any three-seed number in this study
 that has NOT been extended should be read as an upper bound on its own
 effect, not as a point estimate. The ones that have been extended are
 labelled where they appear. The results that do not depend on a small-sample
-mean at all -- the item-level sign tests, which run on 22 to 25 discordant
-items, and the exact zeros, which are counts rather than estimates -- are
+mean at all -- the item-level sign tests, which run on 9 to 26 discordant
+items per comparison, every one above the registered floor of 8, and the exact zeros, which are counts rather than estimates -- are
 untouched by this concern, and they carry the study's firmest claims.
 
 ## What this does not cover
 
-- **Rung 4** (12L/1024d, 151.4M params, 450M tokens) was never run. Rung 3
-  cost 2.3h per run on the fastest instrument available to me, and rung 4
-  projects to several times that -- it belongs at greater scale than I
-  could reach here. Q2's transfer number and Q1's rank question both
-  point at rung 4 as the experiment that matters next.
+- **Rung 5 and beyond.** Rung 4 is the top of this ladder. Its own
+  calibration is the reason to be careful about going further with three
+  seeds: the rung-4 noise band came out at 0.55, wider than any score it
+  judges, because the registered estimator is three times the WORST of three
+  same-seed pairs and one pair happened to differ by 0.184. At that width the
+  margin test is nearly vacuous and the verdicts rest on the item-level sign
+  test alone. A fifth rung would want more seeds per arm before more scale.
 - **Q4 at more than twelve seeds.** All three rungs are measured at twelve
   runs each. That resolves the overall trend and leaves the first step
   (rung 1 to rung 2) unresolved; more seeds would settle it, though what it

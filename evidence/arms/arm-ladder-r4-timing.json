@@ -1,0 +1,98 @@
+{
+ "tokens_to_T": [
+  null
+ ],
+ "final": [
+  0.6333333333333333
+ ],
+ "basics": [
+  0.8
+ ],
+ "final_items": {
+  "11": [
+   true,
+   true,
+   true,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   true,
+   false,
+   true,
+   false,
+   true,
+   true,
+   false,
+   false,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   false,
+   false,
+   true,
+   true,
+   true,
+   true,
+   true,
+   false,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   false,
+   false,
+   false,
+   false,
+   true,
+   false,
+   false,
+   false,
+   false,
+   true,
+   true,
+   false
+  ]
+ },
+ "curves": {
+  "11": [
+   [
+    149413888,
+    0.6333333333333333,
+    0.8,
+    0.0
+   ]
+  ]
+ },
+ "heldrange": {
+  "11": 0.0
+ },
+ "hashes": {
+  "bench": "151af137e50a89e7",
+  "pool": "9b57f5e3d89cdaa0",
+  "tokenizer": "a2f260e5d7115716",
+  "substrate": "9263067ed8291096"
+ },
+ "device": "cuda",
+ "host": "box-C",
+ "node": "node-8",
+ "precision": "tf32"
+}

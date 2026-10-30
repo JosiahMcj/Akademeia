@@ -32,7 +32,7 @@ def main():
     mean = {d: sum(arms[d]["final"]) / len(arms[d]["final"]) for d in args.devices}
     diff = mean[a] - mean[b]
     verdict = "PASS" if abs(diff) <= band else "FAIL"
-    row = {"kind": "parity_pair", "devices": args.devices,
+    row = {"kind": "parity_pair", "precision": precision(), "devices": args.devices,
            "means": {d: round(m, 4) for d, m in mean.items()},
            "finals": {d: arms[d]["final"] for d in args.devices},
            "diff": round(diff, 4), "band": band, "verdict": verdict,

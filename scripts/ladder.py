@@ -35,7 +35,7 @@ from akademeia.probes import load_probes
 from akademeia.ops import device_lock, wait_for_load
 from akademeia.tiers import RUNGS
 from run_arm import (run_curriculum, assemble_arm, pooled_wins, SEEDS, HOST,
-                     load_seed_curve, save_seed_curve)
+                     NODE, precision, load_seed_curve, save_seed_curve)
 from calibrate import calibrate_rung
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -90,9 +90,22 @@ def cmd_probe(rung, journal, device):
     run_curriculum(probe_cfg, c, NICHE, seeds=(11,),
                    tag=f"ladder-r{rung}-timing", phase=f"L{rung}",
                    device=device)
-    rows = [json.loads(l) for l in open(ROOT / "runs" / "journal.jsonl")]
-    wall = [r for r in rows if r.get("kind") == "run"
-            and r.get("tag") == f"ladder-r{rung}-timing"][-1]["wall_s"]
+    # Journal.read() sees the merged file AND unmerged shards. Reading the
+    # raw file here was a leftover from before the writes were sharded: under
+    # a scheduler every run row lands in a shard, so this found nothing and
+    # died with an IndexError. Sharding the writers means updating the
+    # readers in the same breath.
+    rows = journal.read()
+    timed = [r for r in rows if r.get("kind") == "run"
+             and r.get("tag") == f"ladder-r{rung}-timing"]
+    if not timed:
+        print(f"FATAL: no timing run recorded for rung {rung}. The arm was "
+              f"probably resumed from cache, so nothing was re-measured and "
+              f"there is no wall time to extrapolate from. Delete "
+              f"runs/arm-ladder-r{rung}-timing.json and the matching curve "
+              f"cache to force a fresh measurement.")
+        sys.exit(10)
+    wall = timed[-1]["wall_s"]
     est, limit = wall * 3, PROBE_LIMIT_FULL_S[rung]
     journal.append({"kind": "probe", "rung": rung, "wall_s": wall,
                     "est_full_s": est, "limit_s": limit, "device": device})
@@ -103,14 +116,23 @@ def cmd_probe(rung, journal, device):
               f"decision returns to the operator (no auto-adjust)")
         sys.exit(8)
 
-def cmd_baseline(rung, device):
+def cmd_baseline(rung, device, only_seed=None):
+    """only_seed: compute just this seed's curve and stop, for a job array.
+
+    This is not a second code path -- it is the SAME run_curriculum, called
+    with one seed. The per-seed curve cache makes the fan-out safe: each task
+    writes its own uniquely-named cache file, and a later call with the full
+    seed set finds all three and assembles the arm without retraining. Tasks
+    never write the same file, so nothing races even on a shared filesystem.
+    """
     cfg = RUNGS[rung]
     B = cfg.total_tokens
     c = direct50(NICHE, B); validate(c, B)
-    run_curriculum(cfg, c, NICHE, tag=f"ladder-r{rung}-direct50-A",
-                   stream_salt=0, phase=f"L{rung}", device=device)
-    run_curriculum(cfg, c, NICHE, tag=f"ladder-r{rung}-direct50-Aprime",
-                   stream_salt=1, phase=f"L{rung}", device=device)
+    seeds = (only_seed,) if only_seed else SEEDS
+    for salt, suffix in ((0, "A"), (1, "Aprime")):
+        run_curriculum(cfg, c, NICHE, tag=f"ladder-r{rung}-direct50-{suffix}",
+                       seeds=seeds, stream_salt=salt, phase=f"L{rung}",
+                       device=device, assemble=(only_seed is None))
 
 EXT_SEEDS = (44, 55, 66)      # the 2026-09-14 rank seed-extension amendment
 
@@ -189,7 +211,7 @@ def cmd_arms(rung, journal, device):
             to_train.append(seed)
     if to_train:
         waited = wait_for_load()
-        if waited > 0:
+        if waited >= 1.0:        # only a material wait is evidence
             journal.append({"kind": "waited", "tag": f"ladder-r{rung}-core",
                             "seconds": int(waited)})
         with device_lock(device):
@@ -271,11 +293,17 @@ def _adaptive2_arm(rung, journal, device, seeds=SEEDS, tag=None):
             curve_path.write_text(json.dumps(prior, default=str))
             journal.append({"kind": "run", "phase": f"L{rung}", "niche": NICHE,
                             "curriculum": "adaptive2", "seed": seed, "tag": tag,
-                            "device": device,
+                            "device": device, "precision": precision(),
+                            "node": NODE,
                             "wall_s": round(time.monotonic() - t0, 1),
                             "informativeness": info[seed], "hashes": hashes})
     arm = assemble_arm(curves, T=2.0, hashes=hashes, device=device)
+    # every field run_arm records on an arm must be recorded here too: this
+    # is the SECOND writer of an arm file, and it has now been missed twice
+    # when a provenance field was added (host in August, precision today)
     arm["host"] = HOST
+    arm["node"] = NODE
+    arm["precision"] = precision()
     arm["informativeness"] = {str(k): v for k, v in info.items()}
     arm_path.write_text(json.dumps(arm, default=str, indent=1))
 
@@ -329,12 +357,14 @@ def main():
     ap.add_argument("--rung", type=int, required=True, choices=sorted(RUNGS))
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--floor-advisory", action="store_true")
+    ap.add_argument("--only-seed", type=int, default=None,
+                    help="compute one seed's curve and stop (job-array fan-out)")
     args = ap.parse_args()
     journal = Journal(ROOT / "runs" / "journal.jsonl")
     if args.stage == "probe":
         cmd_probe(args.rung, journal, args.device)
     elif args.stage == "baseline":
-        cmd_baseline(args.rung, args.device)
+        cmd_baseline(args.rung, args.device, only_seed=args.only_seed)
     elif args.stage == "calibrate":
         calibrate_rung(args.rung, NICHE, floor_advisory=args.floor_advisory)
     elif args.stage == "arms":
