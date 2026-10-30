@@ -152,6 +152,10 @@ Q4's firmest number was an exact zero, because chains one factor longer than tra
 
 **It never attempts the extra step (D2).** I decoded the model's output on those chains and classified every trace against a taxonomy I fixed before any trace was generated. One step deeper than training, the model wrote the required three partial products in 0 of 60 items at rung 1 and 0 of 60 at rung 3. All 120 stopped at two. It is not failing at the third multiplication. It never writes one. The majority class was SHORT_PREFIX_WRONG (90% at rung 1, 85% at rung 3). My interpretation table assigned no meaning to that class -- a gap in the D2 registration that I left unfilled rather than retrofitted. What stands without interpretation is the count, and across a 12x parameter range the model never once produced a third partial.
 
+![D2 length mechanism](../figures/v3-d2-length.png)
+
+*Figure 4. Every decoded output from D2, classified against the registered taxonomy, 60 items per bar. At the trained length both rungs often write three partials (green and blue). One step longer, neither rung writes a third partial in any of its 60 items, and every output stops at two. File v3-d2-length.png.*
+
 I ran all D2 and D3 on accelerator C, while Q4's zero came from accelerators and processors on another machine. D2's 0 of 120 is a count on its own instrument and needs no cross-machine comparison, while D3's comparison is within itself, against a fixed threshold.
 
 **Training on longer chains helps the small model and not the large one (D3).** I added length-4 chains to training and tested (a,b,c,d), the exact template that had scored zero, now a new combination at a length the model had seen. D3 was originally contingent on SHORT_PREFIX_CORRECT predominating in D2, but that condition was not met. I ran D3 anyway because the structural count motivated it, and that is stated in the protocol.
@@ -163,9 +167,17 @@ I ran all D2 and D3 on accelerator C, while Q4's zero came from accelerators and
 
 At rung 1 the model carried length-4 over to the new combination, while at rung 3, trained on the same chains, it stopped at two steps in 343 of 360 outputs. The larger model learned length 4 for the chains it saw, not as a rule it could reuse. Both rungs held length 5 at exactly zero, as I predicted beforehand, so the boundary sits wherever training stopped.
 
+![D3 length exposure](../figures/v3-d3-exposure.png)
+
+*Figure 5. Left panel, held-out (a,b,c,d) exact match for each of the six runs per rung, with the mean and its standard error. Length 5 scored zero in all twelve runs. Right panel, the same outputs classified by the D2 taxonomy, pooled over seeds, 360 per bar. At rung 1, 222 of 360 held-out outputs attempt three partials, against 17 of 360 at rung 3. File v3-d3-exposure.png.*
+
 Three cautions. The rung-1 score swings from 0.02 to 0.47 across its six runs, so its "exposure helped" reading rests on a noisy mean. The rung-1 mean is an un-extended three-seed-per-arm value, which by this study's own rule should be read as an upper bound on its own effect rather than as a point estimate. And the gap runs the opposite way to what scale usually buys.
 
 **What the large model does instead is a tendency, not a mechanism (D3-ops).** In the rung-3 two-step outputs, step 1 is a*b 98% of the time, and step 2 most often multiplies by d, the last number, skipping c. That rate is 55%, against 19% for c, falling short of the 60% I registered for calling it a mechanism, so I report it as a plurality. Six hand-picked examples had suggested 4 of 6, but the full count is lower, following the same shrinkage the note on three seeds describes.
+
+![D3-ops step-2 operation](../figures/v3-d3-ops.png)
+
+*Figure 6. The step-2 operation in every two-step output, 138 at rung 1 and 343 at rung 3. At rung 3, multiplying by d and skipping c is the plurality at 55%, below the 60% bar I registered for calling it a mechanism (dashed line). File v3-d3-ops.png.*
 
 ## A note on small samples
 
@@ -204,6 +216,8 @@ ops/study_s2.sh <rung> <device>     # Q2
 ops/study_s1.sh <rung> <device>     # Q3
 scripts/verdict_report.py --arm <tag> --base <tag> --rung <n>
 scripts/make_figures.py
+scripts/make_length_figures.py      # D2, D3, D3-ops figures, from evidence/journal.jsonl
+paper/build_pdf.sh                  # this paper as PDF, figures inline
 ```
 
 Arms resume from hash-, device- and host-stamped caches, so an interrupted run costs at most one seed. `runs/journal.jsonl` is the append-only record of every run, gate, verdict and amendment (published as `evidence/journal.jsonl` with per-arm result files in `evidence/arms/`).

@@ -142,9 +142,10 @@ def fig_ladder():
             m = per[r]["mean"]
             ax.plot([i - 0.13, i + 0.13], [m, m], color=INK, linewidth=2,
                     zorder=4)
-            ax.annotate(f"sd {per[r]['spread']:.3f}", (i, m), color=INK2,
+            # anchored above the highest run, so the label never sits on a point
+            ax.annotate(f"sd {per[r]['spread']:.3f}", (i, max(vals)), color=INK2,
                         fontsize=8, ha="center", va="bottom",
-                        xytext=(0, 30), textcoords="offset points")
+                        xytext=(0, 7), textcoords="offset points")
         steps = s1[-1]["steps"]
         note = "\n".join(f"{s['step']}: {s['label']} (p={s['p']:.2f})"
                           for s in steps)
