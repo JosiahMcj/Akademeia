@@ -1,4 +1,4 @@
-# Does curriculum order survive scale? Four questions across a 47x parameter range
+# A Core-then-Branch Curriculum's Retention Cost Survives 47x Scale While the Ordinal Ranking Never Settles: A Pre-registered Ladder from 3.2M to 151.4M Parameters
 
 Josiah McJunkin
 

@@ -1,4 +1,6 @@
-# Akademeia
+# A Core-then-Branch Curriculum's Retention Cost Survives 47x Scale While the Ordinal Ranking Never Settles: A Pre-registered Ladder from 3.2M to 151.4M Parameters
+
+*Akademeia, the third machine in my curriculum series.*
 
 Does the order in which a small language model sees its training data change
 what it can do, and does that difference survive an order of magnitude of
