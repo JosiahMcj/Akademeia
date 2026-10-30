@@ -585,7 +585,7 @@ by the evidence above rather than by the homogeneity being obvious.
 TF32 was never set in this codebase, so it inherited the platform default --
 the unset-knob failure this project has already recorded once. AK_TF32 now
 pins it explicitly, records it on every run row and arm, and joins the resume
-identity so neither precision can adopt the other's cached curves. On sm_80
+identity so neither precision can adopt the other's cached curves. On accelerator C
 the fp32 and TF32 paths differ by roughly eight times in throughput, so both
 are registered here, in advance, as separate candidate instruments, each
 required to pass the full gate ladder independently exactly as cpu and mps
