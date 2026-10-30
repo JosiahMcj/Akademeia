@@ -85,7 +85,7 @@ The four-rung answer separates cleanly into two statements, and a ranking with r
 
 ![Q1 ladder and Q3 lottery](../figures/v3-ladder.png)
 
-*Figure 1. Left panel, the three-seed mean unseen-formula score at each rung, with the instrument labelled per rung. The ordinal measure flips at rungs 3 and 4, always on the adaptive2-vs-direct50 pair, whose gaps are 0.022 and 0.017. Right panel, Q3 per-run lottery on the vm niche, twelve pairs per rung (single instrument), exact Brown-Forsythe p-values. Means rise with scale. The spread does not shrink. File v3-ladder.png.*
+*Figure 1. Left panel, the three-seed mean unseen-formula score at each rung, with the instrument labelled per rung. The ordinal measure flips at rungs 3 and 4, always on the adaptive2-vs-direct50 pair, whose gaps are 0.022 and 0.017. Right panel, Q3 per-run lottery on the vm niche, twelve pairs per rung (single instrument), exact Brown-Forsythe p-values. Means rise with scale. The spread does not shrink.*
 
 ### Q2 -- the composition wall is the last thing scale moves
 
@@ -103,7 +103,7 @@ Because that was the one surprising positive number in the study, I measured it 
 
 ![Q2 composition wall](../figures/v3-wall.png)
 
-*Figure 2. Composition transfer across three rungs. The orange line shows unseen three-variable transfer. Its rung-3 three-seed estimate of 0.270 shrank to 0.198 +- 0.035 at twelve runs (grey point with error bar). The dashed lines are the margin the wall would need to clear at each rung. File v3-wall.png.*
+*Figure 2. Composition transfer across three rungs. The orange line shows unseen three-variable transfer. Its rung-3 three-seed estimate of 0.270 shrank to 0.198 +- 0.035 at twelve runs (grey point with error bar). The dashed lines are the margin the wall would need to clear at each rung.*
 
 ### Q3 -- the lottery does not narrow
 
@@ -144,7 +144,7 @@ On the per-seed lottery, individual runs still scatter widely. One rung-2 arm sp
 
 ![Q4 scratchpad](../figures/v3-scratchpad.png)
 
-*Figure 3. Left panel, novel-combination scores at twelve runs per rung, with per-run dots and means. Right panel, length extrapolation at 0.000 in all 36 runs. File v3-scratchpad.png.*
+*Figure 3. Left panel, novel-combination scores at twelve runs per rung, with per-run dots and means. Right panel, length extrapolation at 0.000 in all 36 runs.*
 
 ### The length wall, taken apart (D2 and D3)
 
@@ -154,7 +154,7 @@ Q4's firmest number was an exact zero, because chains one factor longer than tra
 
 ![D2 length mechanism](../figures/v3-d2-length.png)
 
-*Figure 4. Every decoded output from D2, classified against the registered taxonomy, 60 items per bar. At the trained length both rungs often write three partials (green and blue). One step longer, neither rung writes a third partial in any of its 60 items, and every output stops at two. File v3-d2-length.png.*
+*Figure 4. Every decoded output from D2, classified against the registered taxonomy, 60 items per bar. At the trained length both rungs often write three partials (green and blue). One step longer, neither rung writes a third partial in any of its 60 items, and every output stops at two.*
 
 I ran all D2 and D3 on accelerator C, while Q4's zero came from accelerators and processors on another machine. D2's 0 of 120 is a count on its own instrument and needs no cross-machine comparison, while D3's comparison is within itself, against a fixed threshold.
 
@@ -169,7 +169,7 @@ At rung 1 the model carried length-4 over to the new combination, while at rung 
 
 ![D3 length exposure](../figures/v3-d3-exposure.png)
 
-*Figure 5. Left panel, held-out (a,b,c,d) exact match for each of the six runs per rung, with the mean and its standard error. Length 5 scored zero in all twelve runs. Right panel, the same outputs classified by the D2 taxonomy, pooled over seeds, 360 per bar. At rung 1, 222 of 360 held-out outputs attempt three partials, against 17 of 360 at rung 3. File v3-d3-exposure.png.*
+*Figure 5. Left panel, held-out (a,b,c,d) exact match for each of the six runs per rung, with the mean and its standard error. Length 5 scored zero in all twelve runs. Right panel, the same outputs classified by the D2 taxonomy, pooled over seeds, 360 per bar. At rung 1, 222 of 360 held-out outputs attempt three partials, against 17 of 360 at rung 3.*
 
 Three cautions. The rung-1 score swings from 0.02 to 0.47 across its six runs, so its "exposure helped" reading rests on a noisy mean. The rung-1 mean is an un-extended three-seed-per-arm value, which by this study's own rule should be read as an upper bound on its own effect rather than as a point estimate. And the gap runs the opposite way to what scale usually buys.
 
@@ -177,7 +177,7 @@ Three cautions. The rung-1 score swings from 0.02 to 0.47 across its six runs, s
 
 ![D3-ops step-2 operation](../figures/v3-d3-ops.png)
 
-*Figure 6. The step-2 operation in every two-step output, 138 at rung 1 and 343 at rung 3. At rung 3, multiplying by d and skipping c is the plurality at 55%, below the 60% bar I registered for calling it a mechanism (dashed line). File v3-d3-ops.png.*
+*Figure 6. The step-2 operation in every two-step output, 138 at rung 1 and 343 at rung 3. At rung 3, multiplying by d and skipping c is the plurality at 55%, below the 60% bar I registered for calling it a mechanism (dashed line).*
 
 ## A note on small samples
 
@@ -207,17 +207,6 @@ The study uses synthetic data throughout, and real-text corpora and niches are o
 
 The rung-3 warm-start cores for the branch arm were lost with the checkpoints. I deliberately excluded branch from the Q1 seed extension because its last position is already separated with power at every rung (25 discordant items, p=0.0005 at rung 3). Reproducing it would mean retraining a different thing.
 
-## Reproducing
+## Code and Data Availability
 
-```bash
-ops/p0_gates.sh <device>            # determinism, then golden parity
-ops/ladder_rung.sh <rung> <device>  # probe, baseline, calibrate, arms, verdict
-ops/study_s2.sh <rung> <device>     # Q2
-ops/study_s1.sh <rung> <device>     # Q3
-scripts/verdict_report.py --arm <tag> --base <tag> --rung <n>
-scripts/make_figures.py
-scripts/make_length_figures.py      # D2, D3, D3-ops figures, from evidence/journal.jsonl
-paper/build_pdf.sh                  # this paper as PDF, figures inline
-```
-
-Arms resume from hash-, device- and host-stamped caches, so an interrupted run costs at most one seed. `runs/journal.jsonl` is the append-only record of every run, gate, verdict and amendment (published as `evidence/journal.jsonl` with per-arm result files in `evidence/arms/`).
+The code, the evidence, the pre-registered protocol with every dated amendment, and the figure scripts are in the repository at [github.com/JosiahMcj/Akademeia](https://github.com/JosiahMcj/Akademeia). The evidence is the append-only journal of every run, gate, verdict and amendment, together with the per-arm result files. Every figure in this paper is generated from that evidence by script, and every number in its tables is read from it.
