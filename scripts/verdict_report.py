@@ -63,8 +63,10 @@ def main():
     args = ap.parse_args()
     th = ThresholdsV2(**json.load(
         open(ROOT / "freeze" / f"thresholds_v3_r{args.rung}_{args.niche}.json")))
-    arm = json.load(open(ROOT / "runs" / f"arm-{args.arm}.json"))
-    base = json.load(open(ROOT / "runs" / f"arm-{args.base}.json"))
+    # live runs/ on the lab box, else the published evidence/ copy
+    arms = ROOT / "runs" if (ROOT / "runs" / "journal.jsonl").exists() else ROOT / "evidence" / "arms"
+    arm = json.load(open(arms / f"arm-{args.arm}.json"))
+    base = json.load(open(arms / f"arm-{args.base}.json"))
     if arm["hashes"] != base["hashes"]:
         raise SystemExit("hash mismatch between arms: comparison is VOID, "
                          "do not report these numbers")

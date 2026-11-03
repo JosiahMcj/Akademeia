@@ -13,7 +13,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from akademeia.journal import Journal
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "figures"
@@ -34,18 +33,31 @@ def style(ax):
     ax.grid(True, color=GRID, linewidth=0.6, alpha=0.8)
     ax.set_axisbelow(True)
 
+# The live runs/ tree when it exists (the lab box), else the published
+# evidence/ copy, so the figures rebuild from a fresh clone of the paper repo.
+LIVE = (ROOT / "runs" / "journal.jsonl").exists()
+ARMS_DIR = ROOT / "runs" if LIVE else ROOT / "evidence" / "arms"
+
+def arm_path(name):
+    return ARMS_DIR / f"arm-{name}.json"
+
 def arm(name):
-    return json.loads((ROOT / "runs" / f"arm-{name}.json").read_text())
+    return json.loads(arm_path(name).read_text())
 
 def jrows(**match):
-    rows = Journal(ROOT / "runs" / "journal.jsonl").read()   # shard-aware
+    if LIVE:
+        from akademeia.journal import Journal
+        rows = Journal(ROOT / "runs" / "journal.jsonl").read()   # shard-aware
+    else:
+        rows = [json.loads(l) for l in
+                (ROOT / "evidence" / "journal.jsonl").read_text().splitlines() if l.strip()]
     return [r for r in rows if all(r.get(k) == v for k, v in match.items())]
 
 def instrument_label(a: dict) -> str:
     """Role labels, matching RESULTS.md, never raw device strings."""
     host = (a.get("host") or "").lower()
     dev = a.get("device")
-    if dev == "cuda" and "a30" in host:
+    if dev == "cuda" and ("a30" in host or host == "box-c"):
         return "accelerator C"
     if dev == "cuda":
         return "accelerator A"
@@ -63,20 +75,10 @@ def rungs_present():
     while True:
         tags = [f"ladder-r{r}-direct50-A"] + [f"ladder-r{r}-{n}"
                                               for n, _ in ARMS if n != "direct50"]
-        if not all((ROOT / "runs" / f"arm-{t}.json").exists() for t in tags):
+        if not all(arm_path(t).exists() for t in tags):
             break
         out.append(r); r += 1
     return out
-
-def params_label(rung):
-    from akademeia.tiers import RUNGS
-    cfg = RUNGS[rung]
-    # parameter count from the stored config, never retyped
-    from akademeia.model import TinyGPT
-    import torch
-    with torch.no_grad():
-        n = sum(p.numel() for p in TinyGPT(cfg, vocab_size=64).parameters())
-    return f"rung {rung}\n~{n/1e6:.0f}M params"
 
 def fig_ladder():
     rungs = rungs_present()

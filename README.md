@@ -43,31 +43,14 @@ append-only journal and the per-arm result files every number is read from.
 This is the third machine in a series. Paideia (v1) asked whether curricula
 buy speed. Ephebeia (v2, coming soon) asked what they buy at a fixed budget.
 
-## Reproducing
+## Rebuilding the figures and tables
+
+This repository holds the paper, the evidence and the scripts that turn the evidence into every figure and table. The training and campaign code stays in my private lab archive.
 
 ```
-make setup && make test
+make setup && make test   # the statistics behind the verdict tables
+make figures              # all six figures, rebuilt from evidence/
+paper/build_pdf.sh        # the paper as PDF (needs pandoc and Chrome)
 ```
 
-Running the campaign, one stage at a time:
-
-```
-ops/p0_gates.sh <device>            # determinism, then golden parity
-ops/ladder_rung.sh <rung> <device>  # probe, baseline, calibrate, arms, verdict
-ops/study_s2.sh <rung> <device>     # Q2
-ops/study_s1.sh <rung> <device>     # Q3
-scripts/verdict_report.py --arm <tag> --base <tag> --rung <n>
-```
-
-Arms resume from hash-, device- and host-stamped caches, so an interrupted run
-costs at most one seed. `runs/journal.jsonl` is the append-only record of every
-run, gate, verdict and amendment. The published copy is `evidence/journal.jsonl`,
-with the per-arm result files in `evidence/arms/`.
-
-Figures and the paper:
-
-```
-python scripts/make_figures.py          # Q1-Q4 figures, from a live runs/ tree
-python scripts/make_length_figures.py   # D2, D3 and D3-ops figures, from evidence/
-paper/build_pdf.sh                      # the paper as PDF (needs pandoc and Chrome)
-```
+`evidence/journal.jsonl` is the append-only record of every run, gate, verdict and amendment, and `evidence/arms/` holds the per-arm result files. `scripts/verdict_report.py --arm <tag> --base <tag> --rung <n>` prints the full statistical report behind any Q1 verdict.

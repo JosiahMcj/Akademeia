@@ -1,3 +1,2 @@
-torch>=2.4
-numpy
+matplotlib==3.11.1
 pytest
